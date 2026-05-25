@@ -7,18 +7,19 @@ import { icons } from '../lib/icons';
 import { yandexCovers } from '../lib/yandex-images';
 import { collegeCovers } from '../lib/college-images';
 import { lumaCovers } from '../lib/luma-images';
+import { withBase } from '../lib/paths';
 
 const cases = [
   {
     title: 'Сделал редизайн лендинга Онлайн-колледжа',
     type: 'ИнтернетУрок',
-    href: '/made-redesign-landing-of-online-college',
+    href: withBase('/made-redesign-landing-of-online-college'),
     cover: collegeCovers,
   },
   {
     title: 'Яндекс Маркет | Вишлист Alice AI',
     type: 'Pet-проект',
-    href: '/yandex-market-wishlist-alice-ai',
+    href: withBase('/yandex-market-wishlist-alice-ai'),
     cover: yandexCovers,
   },
   {

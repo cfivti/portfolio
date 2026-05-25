@@ -8,6 +8,7 @@ import {
   collegeScrollVideos,
   collegeGalleryAl2,
 } from '../lib/college-images';
+import { withBase } from '../lib/paths';
 import '../styles/case-page.css';
 import '../styles/college-case.css';
 
@@ -163,7 +164,7 @@ const galleryItems = [1, 2, 3, 4] as const;
         <CaseCard
           title="Яндекс Маркет | Вишлист Alice AI"
           type="Pet-проект"
-          href="/yandex-market-wishlist-alice-ai"
+          href={withBase('/yandex-market-wishlist-alice-ai')}
           cover={yandexCovers}
         />
       </div>

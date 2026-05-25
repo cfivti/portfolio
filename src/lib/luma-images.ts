@@ -1,7 +1,9 @@
+import { withBase } from './paths';
+
 const PREVIEW_BASE = '/main-page-preview';
 
 export function mainPreviewImg(file: string): string {
-  return `${PREVIEW_BASE}/${file}.png`;
+  return withBase(`${PREVIEW_BASE}/${file}.png`);
 }
 
 export const lumaCovers = {

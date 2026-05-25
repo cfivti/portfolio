@@ -1,12 +1,14 @@
+import { withBase } from './paths';
+
 const BASE = '/yandex-market-wishlist-alice-ai';
 const PREVIEW_BASE = '/main-page-preview';
 
 export function yandexImg(file: string): string {
-  return `${BASE}/${file}.png`;
+  return withBase(`${BASE}/${file}.png`);
 }
 
 export function mainPreviewImg(file: string): string {
-  return `${PREVIEW_BASE}/${file}.png`;
+  return withBase(`${PREVIEW_BASE}/${file}.png`);
 }
 
 export const yandexCovers = {

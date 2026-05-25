@@ -1,6 +1,7 @@
 ---
 import '../styles/tokens.css';
 import '../styles/global.css';
+import { withBase } from '../lib/paths';
 
 const { title = 'vanya.cfivti — портфолио' } = Astro.props;
 ---
@@ -10,9 +11,9 @@ const { title = 'vanya.cfivti — портфолио' } = Astro.props;
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
-  <link rel="icon" href="/favicon-WM.ico" media="(prefers-color-scheme: light)" />
-  <link rel="icon" href="/favicon-DM.ico" media="(prefers-color-scheme: dark)" />
-  <link rel="icon" href="/favicon-WM.ico" />
+  <link rel="icon" href={withBase('/favicon-WM.ico')} media="(prefers-color-scheme: light)" />
+  <link rel="icon" href={withBase('/favicon-DM.ico')} media="(prefers-color-scheme: dark)" />
+  <link rel="icon" href={withBase('/favicon-WM.ico')} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link

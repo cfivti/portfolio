@@ -1,16 +1,18 @@
+import { withBase } from './paths';
+
 const BASE = '/made-redesign-landing-online-college';
 const PREVIEW_BASE = '/main-page-preview';
 
 export function collegeImg(file: string): string {
-  return `${BASE}/${file}.png`;
+  return withBase(`${BASE}/${file}.png`);
 }
 
 export function collegeVideo(file: string): string {
-  return `${BASE}/${file}.mp4`;
+  return withBase(`${BASE}/${file}.mp4`);
 }
 
 export function mainPreviewImg(file: string): string {
-  return `${PREVIEW_BASE}/${file}.png`;
+  return withBase(`${PREVIEW_BASE}/${file}.png`);
 }
 
 export function collegeGalleryAl2(index: 1 | 2 | 3 | 4): {
