@@ -1,0 +1,263 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import CaseCard from '../components/CaseCard.astro';
+import ComingSoonModal from '../components/ComingSoonModal.astro';
+import { icons } from '../lib/icons';
+import { yandexCovers } from '../lib/yandex-images';
+import { collegeCovers } from '../lib/college-images';
+import { lumaCovers } from '../lib/luma-images';
+
+const cases = [
+  {
+    title: 'Сделал редизайн лендинга Онлайн-колледжа',
+    type: 'ИнтернетУрок',
+    href: '/made-redesign-landing-of-online-college',
+    cover: collegeCovers,
+  },
+  {
+    title: 'Яндекс Маркет | Вишлист Alice AI',
+    type: 'Pet-проект',
+    href: '/yandex-market-wishlist-alice-ai',
+    cover: yandexCovers,
+  },
+  {
+    title: 'Задизайнил приложения для умного дома LUMA ThinQ',
+    type: 'Pet-проект',
+    href: '#',
+    comingSoon: true,
+    cover: lumaCovers,
+  },
+];
+---
+
+<BaseLayout title="vanya.cfivti — портфолио">
+  <Header variant="home" />
+
+  <main>
+    <section class="hero content-wrap">
+      <div class="hero__cols">
+
+        <div class="hero__col hero__col--left">
+          <div class="hero__row hero__row--top">
+            <p class="hero__bio">
+              Привет, я Junior UX/UI Дизайнер.<br />
+              Это моё портфолио.
+            </p>
+            <span class="hero__num" aria-hidden="true">[ 1 ]</span>
+          </div>
+          <p class="hero__location">
+            <img src={icons.pin} alt="" width="32" height="32" aria-hidden="true" />
+            Москва, Россия
+          </p>
+        </div>
+
+        <div class="hero__col hero__col--right">
+          <div class="hero__contacts-block">
+            <div class="hero__row hero__row--top hero__contacts-head">
+              <p class="hero__contacts-label">Контакты</p>
+              <span class="hero__num" aria-hidden="true">[ 2 ]</span>
+            </div>
+            <nav class="hero__links" aria-label="Контакты">
+              <a href="https://t.me/cfivti" target="_blank" rel="noopener noreferrer" class="hero__link">
+                Telegram
+                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
+              </a>
+              <a href="mailto:cfivti@gmail.com" class="hero__link">
+                Email
+                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
+              </a>
+            </nav>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="cases content-wrap" aria-label="Проекты">
+      <h2 class="cases__heading">Проекты</h2>
+      <div class="cases__list">
+        {cases.map(c => (
+          <CaseCard
+            title={c.title}
+            type={c.type}
+            href={c.href}
+            comingSoon={c.comingSoon}
+            cover={c.cover}
+          />
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <ComingSoonModal />
+</BaseLayout>
+
+<style>
+.hero {
+  padding-block: 60px;
+}
+
+/* AL0 = 800px; AL1 = 485px; AL2 = 295px; gap 20px */
+.hero__cols {
+  display: grid;
+  grid-template-columns: 485fr 295fr;
+  column-gap: 20px;
+  width: 100%;
+  align-items: stretch;
+}
+
+.hero__col--left {
+  max-width: 485px;
+  justify-content: flex-start;
+  gap: 44px;
+}
+
+.hero__col--right {
+  max-width: 295px;
+}
+
+.hero__col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.hero__row--top {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.hero__bio {
+  flex: 1;
+  min-width: 0;
+  font: 400 24px/1.6 'Onest', sans-serif;
+  color: var(--color-black-1000);
+}
+
+.hero__num {
+  flex-shrink: 0;
+  font: var(--text-description-1);
+  color: var(--color-black-1050);
+  white-space: nowrap;
+}
+
+.hero__location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font: 400 20px/1.5 'Onest', sans-serif;
+  color: var(--color-black-1050);
+}
+
+.hero__contacts-block {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero__contacts-head {
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--color-grey-2050);
+}
+
+.hero__contacts-label {
+  flex: 1;
+  min-width: 0;
+  font: var(--text-header-2);
+  color: var(--color-black-1000);
+  margin: 0;
+}
+
+.hero__links {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.hero__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 10px;
+  font: 400 18px/1.5 'Onest', sans-serif;
+  color: var(--color-black-1000);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.hero__link img {
+  flex-shrink: 0;
+  transition: filter 0.15s ease;
+}
+
+.hero__link:hover {
+  color: var(--color-accent-blue-4050);
+}
+
+.hero__link:hover img {
+  filter: invert(33%) sepia(93%) saturate(2577%) hue-rotate(214deg) brightness(101%) contrast(101%);
+}
+
+.cases {
+  padding-block: 160px;
+}
+
+.cases__heading {
+  font: var(--text-header-1);
+  color: var(--color-black-1000);
+  margin: 0 0 32px;
+}
+
+.cases__list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  width: 100%;
+}
+
+@media (max-width: 744px) {
+  .hero__cols {
+    grid-template-columns: 485fr 295fr;
+    column-gap: 20px;
+  }
+
+  .hero__col--left,
+  .hero__col--right {
+    max-width: none;
+  }
+
+  .hero__col {
+    gap: 24px;
+  }
+
+  .hero__col--left {
+    gap: 36px;
+  }
+}
+
+@media (max-width: 440px) {
+  .hero {
+    padding-block: 30px;
+  }
+
+  .hero__cols {
+    grid-template-columns: 1fr;
+    row-gap: 32px;
+  }
+
+  .hero__col--left,
+  .hero__col--right {
+    max-width: none;
+  }
+
+  .hero__bio {
+    font: 400 22px/1.6 'Onest', sans-serif;
+  }
+}
+</style>
+

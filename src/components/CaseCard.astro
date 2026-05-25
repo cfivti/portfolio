@@ -1,0 +1,214 @@
+---
+import { icons } from '../lib/icons';
+
+interface Props {
+  title: string;
+  type: string;
+  href: string;
+  comingSoon?: boolean;
+  cover: {
+    desktop: string;
+    tablet?: string;
+    mobile?: string;
+    alt?: string;
+  };
+}
+
+const { title, type, href, cover, comingSoon = false } = Astro.props;
+const alt = cover.alt ?? title;
+---
+
+<article class="case-card">
+
+  <div class="case-card__content">
+    <div class="case-card__head">
+      <h2 class="case-card__title">
+        {comingSoon ? (
+          <button type="button" class="case-card__title-btn" data-coming-soon>{title}</button>
+        ) : (
+          <a href={href}>{title}</a>
+        )}
+      </h2>
+      <p class="case-card__type">{type}</p>
+    </div>
+    {comingSoon ? (
+      <button type="button" class="btn btn--page case-card__btn" data-coming-soon aria-label={`${title} — скоро`}>
+        <span class="btn__text">Кейс</span>
+        <span class="btn__icon" aria-hidden="true">
+          <img src={icons.arrow1} alt="" width="32" height="32" />
+        </span>
+      </button>
+    ) : (
+      <a href={href} class="btn btn--page case-card__btn" aria-label={`Открыть кейс: ${title}`}>
+        <span class="btn__text">Кейс</span>
+        <span class="btn__icon" aria-hidden="true">
+          <img src={icons.arrow1} alt="" width="32" height="32" />
+        </span>
+      </a>
+    )}
+  </div>
+
+  {comingSoon ? (
+    <button type="button" class="case-card__cover case-card__cover--btn" data-coming-soon aria-label={`${title} — скоро`}>
+      <picture>
+        {cover.mobile && <source media="(max-width: 440px)" srcset={cover.mobile} />}
+        {cover.tablet && <source media="(max-width: 744px)" srcset={cover.tablet} />}
+        <img src={cover.desktop} alt={alt} loading="lazy" width="520" height="310" />
+      </picture>
+    </button>
+  ) : (
+    <a href={href} class="case-card__cover" tabindex="-1" aria-hidden="true">
+      <picture>
+        {cover.mobile && <source media="(max-width: 440px)" srcset={cover.mobile} />}
+        {cover.tablet && <source media="(max-width: 744px)" srcset={cover.tablet} />}
+        <img src={cover.desktop} alt={alt} loading="lazy" width="520" height="310" />
+      </picture>
+    </a>
+  )}
+
+</article>
+
+<style>
+/* Размеры: W×H (после исправления перепутанных H/W в макете) */
+.case-card {
+  --preview-w: 520px;
+  --preview-h: 310px;
+  --card-h: 310px;
+
+  width: 100%;
+  max-width: 800px;
+  height: var(--card-h);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 24px;
+}
+
+.case-card__content {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: var(--preview-h);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.case-card__head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-card__title {
+  font: var(--text-header-2);
+  color: var(--color-black-1000);
+}
+
+.case-card__title a,
+.case-card__title-btn {
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.case-card__cover--btn {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.case-card__type {
+  font: var(--text-description-1);
+  color: var(--color-black-1050);
+  margin: 0;
+}
+
+.case-card__btn {
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.case-card__cover {
+  flex: 0 0 var(--preview-w);
+  width: var(--preview-w);
+  height: var(--preview-h);
+  overflow: hidden;
+  display: block;
+}
+
+.case-card__cover picture {
+  display: block;
+  width: var(--preview-w);
+  height: var(--preview-h);
+}
+
+.case-card__cover img {
+  width: var(--preview-w) !important;
+  height: var(--preview-h) !important;
+  max-width: none !important;
+  border-radius: 8px;
+  background: var(--color-grey-2050);
+  object-fit: cover;
+}
+
+/* vTablet — карточка W=640 H=230, превью W=360 H=230 */
+@media (max-width: 744px) {
+  .case-card {
+    --preview-w: 360px;
+    --preview-h: 230px;
+    --card-h: 230px;
+    max-width: 640px;
+    gap: 16px;
+  }
+}
+
+/* Mobile — карточка W=Fill H=656, превью W=Fill H=480 */
+@media (max-width: 440px) {
+  .case-card {
+    --preview-w: 100%;
+    --preview-h: 480px;
+    --card-h: auto;
+
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 656px;
+    min-height: 656px;
+    height: auto;
+    gap: 24px;
+  }
+
+  .case-card__cover {
+    order: -1;
+    flex: 0 0 var(--preview-h);
+    width: 100%;
+    height: var(--preview-h);
+    max-width: none;
+  }
+
+  .case-card__cover picture {
+    width: 100%;
+    height: var(--preview-h);
+  }
+
+  .case-card__cover img {
+    width: 100% !important;
+    height: var(--preview-h) !important;
+  }
+
+  .case-card__content {
+    height: auto;
+    flex: 1 1 auto;
+    gap: 24px;
+    justify-content: flex-start;
+  }
+
+}
+</style>

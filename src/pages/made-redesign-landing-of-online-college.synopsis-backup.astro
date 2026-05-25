@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import CaseCard from '../components/CaseCard.astro';
+import { yandexCovers } from '../lib/yandex-images';
+import {
+  collegeKonkurenti,
+  collegeScrollVideos,
+  collegeGalleryAl2,
+} from '../lib/college-images';
+import '../styles/case-page.css';
+import '../styles/college-case.css';
+
+const galleryItems = [1, 2, 3, 4] as const;
+---
+
+<BaseLayout title="Редизайн лендинга Онлайн-колледжа — vanya.cfivti">
+  <Header variant="case" />
+
+  <main>
+    <article class="college-case case-prose">
+
+      <div class="college-block college-block--title">
+        <div class="college-al0">
+          <h1 class="case-title">Сделал редизайн лендинга Онлайн-колледжа</h1>
+        </div>
+      </div>
+
+      <div class="college-block college-block--context">
+        <div class="college-al0">
+          <section class="college-section">
+            <h2 class="case-h1">Контекст и проект</h2>
+            <p>
+              <span class="syn">Работал в роли </span><span class="key">UX/UI дизайнера</span><span class="syn"> и отвечал за </span><span class="key">анализ конкурентов и ЦА,</span><span class="syn"> </span><span class="key">переработку структуры и стиля лендинга,</span><span class="syn"> </span><span class="key">создание визуального языка</span><span class="syn"> и вариантов прототипа.</span>
+            </p>
+          </section>
+
+          <section class="college-section">
+            <h2 class="case-h1">Проблема</h2>
+            <p>
+              <span class="key">Лендинг выглядел устаревшим</span><span class="syn"> на фоне конкурентов</span><span class="key"> и имел малую конверсию,</span><span class="syn"> </span><span class="key">компания не понимала</span><span class="syn"> </span><span class="key">как общаться с подростками.</span>
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <div class="college-block college-block--audience">
+        <div class="college-al0 college-al0--gap-20">
+          <h2 class="case-h1">Аудитория сервиса</h2>
+
+          <div class="college-audience-list">
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">1)</span>
+              <p class="case-pair__text">
+                <span class="key">Подростки,</span><span class="syn"> </span><span class="key">кто хочет получить</span><span class="syn"> </span><span class="key">образование в сфере IT.</span><span class="syn"> Сейчас Онлайн-колледж предоставляет</span><span class="syn"> </span><span class="key">3 направления, востребованных в IT.</span>
+              </p>
+            </div>
+
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">2)</span>
+              <p class="case-pair__text">
+                <span class="key">Выпускники онлайн-школы от ИнтернетУрока —</span><span class="syn"> с большей вероятностью выберут Онлайн-колледж,</span><span class="syn"> так как знакомы с сервисом.</span><span class="syn"> </span><span class="key">Важно соблюсти фирменный стиль ИнтернетУрока,</span><span class="syn"> чтобы не отпугнуть пользователя.</span>
+              </p>
+            </div>
+
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">3)</span>
+              <p class="case-pair__text">
+                <span class="key">Родители —</span><span class="syn"> </span><span class="key">финансируют обучение</span><span class="syn"> </span><span class="key">и тщательнее подходят к выбору учебного места</span><span class="syn"> для ребёнка.</span>
+              </p>
+            </div>
+
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">4)</span>
+              <p class="case-pair__text">
+                <span class="key">Студенты из регионов —</span><span class="syn"> </span><span class="key">хотят получить московское образование</span><span class="syn"> </span><span class="key">без возможности уехать из своего города.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="college-block college-block--competitors">
+        <div class="college-al0 college-al0--gap-20">
+          <h2 class="case-h1">Конкуренты</h2>
+          <p>
+            <span class="key">На основе данных о ЦА приступил к поиску конкурентов, чтобы:</span>
+          </p>
+
+          <ul class="case-list">
+            <li>
+              <span class="case-list__num">1)</span>
+              <span><span class="key">Лучше понять edtech-рынок:</span><span class="syn"> </span><span class="key">как он продвигает услуги</span><span class="syn"> </span><span class="key">и как общается с пользователем.</span></span>
+            </li>
+            <li>
+              <span class="case-list__num">2)</span>
+              <span><span class="key">Что предлагают конкуренты</span><span class="syn"> </span><span class="key">и как общаются с потенциальным клиентом.</span></span>
+            </li>
+            <li>
+              <span class="case-list__num">3)</span>
+              <span><span class="key">Разобрать и сравнить сайты конкурентов</span><span class="syn"> </span><span class="key">и Онлайн-колледжа между собой.</span></span>
+            </li>
+          </ul>
+        </div>
+
+        <picture class="college-media-wide college-media-wide--konkurenti">
+          <source media="(max-width: 744px)" srcset={collegeKonkurenti.tablet} />
+          <source media="(max-width: 440px)" srcset={collegeKonkurenti.mobile} />
+          <img src={collegeKonkurenti.desktop} alt="Сравнение лендингов конкурентов" width="1200" height="700" loading="lazy" />
+        </picture>
+
+        <div class="college-al0">
+          <p>
+            <span class="syn">Во время исследования подметил</span><span class="syn"> </span><span class="key">особенности вёрстки для подростковой аудитории:</span><span class="syn"> </span><span class="key">более широкие отступы по краям страниц,</span><span class="syn"> </span><span class="key">меньший размер текста</span><span class="syn"> </span><span class="key">и меньше иллюстраций.</span><span class="syn"> Всё это снижает риск</span><span class="syn"> </span><span class="key">отпугнуть потенциального покупателя.</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="college-block college-block--result">
+        <div class="college-al0 college-al0--gap-20">
+          <h2 class="case-h1">Результат</h2>
+          <p>
+            <span class="syn">В итоге сайт получил</span><span class="syn"> </span><span class="key">обновлённый дизайн</span><span class="syn"> на основе материнского сервиса,</span><span class="syn"> </span><span class="key">был скорректирован контент</span><span class="syn"> </span><span class="key">и стиль общения с потенциальным студентом —</span><span class="syn"> смещён фокус на</span><span class="syn"> </span><span class="key">перспективу карьерного роста.</span>
+          </p>
+        </div>
+
+        <div class="college-gallery-wrap">
+          <div class="college-gallery-al0" aria-label="Галерея макетов">
+            <div class="college-gallery-al1">
+              <video
+                class="college-scroll-video"
+                muted
+                loop
+                playsinline
+                preload="none"
+                aria-label="Скролл лендинга"
+                data-src-desktop={collegeScrollVideos.desktop}
+                data-src-tablet={collegeScrollVideos.tablet}
+                data-src-mobile={collegeScrollVideos.mobile}
+              />
+            </div>
+
+            <div class="college-gallery-al2">
+              {galleryItems.map((i) => {
+                const img = collegeGalleryAl2(i);
+                return (
+                  <picture class="college-gallery-al2__item">
+                    <source media="(max-width: 440px)" srcset={img.mobile} />
+                    <source media="(max-width: 744px)" srcset={img.tablet} />
+                    <img src={img.desktop} alt={`Блок интерфейса ${i}`} loading="lazy" />
+                  </picture>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <footer class="case-footer case-footer--compact">
+      <div class="content-wrap">
+        <CaseCard
+          title="Яндекс Маркет | Вишлист Alice AI"
+          type="Pet-проект"
+          href="/yandex-market-wishlist-alice-ai"
+          cover={yandexCovers}
+        />
+      </div>
+    </footer>
+  </main>
+</BaseLayout>
+
+<script>
+  const collegeVideo = document.querySelector('.college-scroll-video') as HTMLVideoElement | null;
+  if (collegeVideo) {
+    const pickSrc = () => {
+      const w = window.innerWidth;
+      if (w <= 440) return collegeVideo.dataset.srcMobile ?? '';
+      if (w <= 744) return collegeVideo.dataset.srcTablet ?? '';
+      return collegeVideo.dataset.srcDesktop ?? '';
+    };
+
+    const loadAndPlay = () => {
+      const src = pickSrc();
+      if (!src || collegeVideo.dataset.activeSrc === src) return;
+      collegeVideo.dataset.activeSrc = src;
+      collegeVideo.src = src;
+      collegeVideo.load();
+      collegeVideo.play().catch(() => {});
+    };
+
+    const gallery = document.querySelector('.college-gallery-al1');
+    if (gallery && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            loadAndPlay();
+            io.disconnect();
+          }
+        },
+        { rootMargin: '200px' }
+      );
+      io.observe(gallery);
+    } else {
+      loadAndPlay();
+    }
+
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(loadAndPlay, 200);
+    });
+  }
+</script>
