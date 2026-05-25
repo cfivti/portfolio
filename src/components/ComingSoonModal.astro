@@ -1,0 +1,181 @@
+---
+/** Модальное окно «кейс в разработке» */
+---
+
+<div
+  class="soon-modal"
+  id="coming-soon-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="coming-soon-title"
+  aria-hidden="true"
+  hidden
+>
+  <div class="soon-modal__backdrop" data-soon-close></div>
+
+  <div class="soon-modal__panel">
+    <div class="soon-modal__copy">
+      <h2 class="soon-modal__title" id="coming-soon-title">Будет скоро</h2>
+      <p class="soon-modal__desc">
+        Кейс в процессе, вы можете написать за подробностями! :)
+      </p>
+    </div>
+    <button type="button" class="btn btn--page soon-modal__btn" data-soon-close>
+      Хорошо
+    </button>
+  </div>
+</div>
+
+<style>
+.soon-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.soon-modal.is-open {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+.soon-modal[hidden] {
+  display: none;
+}
+
+.soon-modal:not([hidden]).is-open {
+  display: flex;
+}
+
+.soon-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.soon-modal__panel {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 20px;
+  width: 680px;
+  max-width: calc(100vw - 40px);
+  min-height: 280px;
+  padding: 32px;
+  border-radius: 24px;
+  background: var(--color-white-3000);
+  box-shadow: var(--effect-header-shadow);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.soon-modal.is-open .soon-modal__panel {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.soon-modal__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.soon-modal__title {
+  margin: 0;
+  font: 500 24px/1.25 'Onest', sans-serif;
+  color: var(--color-black-1000);
+}
+
+.soon-modal__desc {
+  margin: 0;
+  max-width: 320px;
+  width: 100%;
+  font: 400 20px/1.5 'Onest', sans-serif;
+  color: var(--color-black-1000);
+}
+
+.soon-modal__btn {
+  align-self: flex-start;
+  width: 160px;
+  height: 46px;
+}
+
+@media (max-width: 744px) {
+  .soon-modal__panel {
+    width: 640px;
+    min-height: 320px;
+  }
+}
+
+@media (max-width: 440px) {
+  .soon-modal {
+    padding: 24px;
+  }
+
+  .soon-modal__panel {
+    width: 100%;
+    max-width: 370px;
+    min-height: 320px;
+    padding: 26px;
+    border-radius: 20px;
+  }
+
+  .soon-modal__btn {
+    align-self: stretch;
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+  const modal = document.getElementById('coming-soon-modal');
+
+  const open = () => {
+    if (!modal) return;
+    modal.removeAttribute('hidden');
+    requestAnimationFrame(() => modal.classList.add('is-open'));
+    document.body.style.overflow = 'hidden';
+  };
+
+  const close = () => {
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    window.setTimeout(() => {
+      if (!modal.classList.contains('is-open')) {
+        modal.setAttribute('hidden', '');
+      }
+    }, 350);
+  };
+
+  if (modal) {
+    modal.querySelectorAll('[data-soon-close]').forEach((el) => {
+      el.addEventListener('click', close);
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+    });
+  }
+
+  document.querySelectorAll('[data-coming-soon]').forEach((trigger) => {
+    trigger.addEventListener('click', (e) => {
+      e.preventDefault();
+      open();
+    });
+  });
+</script>

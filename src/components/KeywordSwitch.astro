@@ -1,0 +1,125 @@
+---
+import { icons } from '../lib/icons';
+---
+
+<button
+  type="button"
+  class="keyword-switch"
+  id="keyword-switch"
+  aria-pressed="false"
+  aria-label="Режим чтения: весь текст или ключевые слова"
+>
+  <span class="keyword-switch__frame">
+    <span class="keyword-switch__track">
+      <span class="keyword-switch__thumb" aria-hidden="true"></span>
+      <span class="keyword-switch__half keyword-switch__half--left" aria-hidden="true">
+        <img class="keyword-switch__icon" src={icons.textTrue} alt="" width="32" height="32" />
+      </span>
+      <span class="keyword-switch__half keyword-switch__half--right" aria-hidden="true">
+        <img class="keyword-switch__icon" src={icons.textFalse} alt="" width="32" height="32" />
+      </span>
+    </span>
+  </span>
+</button>
+
+<style>
+.keyword-switch {
+  flex-shrink: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.keyword-switch__frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 150px;
+  height: 68px;
+  border-radius: 100px;
+  background: var(--color-white-3000);
+  box-shadow: var(--effect-header-shadow);
+}
+
+.keyword-switch__track {
+  position: relative;
+  width: 130px;
+  height: 48px;
+  border-radius: 100px;
+  background: #f9f9f9;
+  overflow: hidden;
+}
+
+.keyword-switch__thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 65px;
+  height: 48px;
+  border-radius: 100px;
+  background: #247bff;
+  transform: translateX(0);
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Режим «ключевые слова» — плашка справа */
+.keyword-switch[aria-pressed="true"] .keyword-switch__thumb {
+  transform: translateX(65px);
+}
+
+.keyword-switch__half {
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 48px;
+}
+
+.keyword-switch__half--left {
+  left: 0;
+}
+
+.keyword-switch__half--right {
+  right: 0;
+}
+
+.keyword-switch__icon {
+  display: block;
+  width: 32px;
+  height: 32px;
+  transition: filter 0.35s ease;
+}
+
+/* Режим «весь текст» — плашка слева, иконка белая */
+.keyword-switch[aria-pressed="false"] .keyword-switch__half--left .keyword-switch__icon {
+  filter: brightness(0) invert(1);
+}
+
+.keyword-switch[aria-pressed="true"] .keyword-switch__half--left .keyword-switch__icon {
+  filter: none;
+}
+
+/* Режим «ключевые слова» — плашка справа, иконка белая */
+.keyword-switch[aria-pressed="true"] .keyword-switch__half--right .keyword-switch__icon {
+  filter: brightness(0) invert(1);
+}
+
+.keyword-switch[aria-pressed="false"] .keyword-switch__half--right .keyword-switch__icon {
+  filter: none;
+}
+
+@media (max-width: 440px) {
+  :global(.site-header.variant-case) .keyword-switch__frame {
+    width: auto;
+    height: auto;
+    background: transparent;
+    box-shadow: none;
+  }
+}
+</style>

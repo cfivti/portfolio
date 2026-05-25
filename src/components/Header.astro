@@ -1,0 +1,380 @@
+---
+import { icons } from '../lib/icons';
+import KeywordSwitch from './KeywordSwitch.astro';
+
+const { variant = 'home' } = Astro.props;
+const isCase = variant === 'case';
+---
+
+<header class={`site-header variant-${variant}`} id="site-header">
+  <div class="site-header__backdrop" aria-hidden="true"></div>
+
+  {isCase ? (
+    <div class="site-header__row site-header__row--case header-case-al0">
+      <div class="header-case-al1">
+        <KeywordSwitch />
+      </div>
+      <div class="header-case-al2">
+        <span class="header__burger-frame">
+          <button
+            class="btn btn--circle header__burger header__burger--case"
+            id="burger-btn"
+            aria-label="Открыть меню"
+            aria-expanded="false"
+            aria-controls="mobile-menu"
+          >
+            <span class="burger-icon">
+              <img src={icons.burger} alt="" width="32" height="32" aria-hidden="true" />
+            </span>
+            <span class="burger-back">
+              <img src={icons.arrowLeft} alt="" width="32" height="32" aria-hidden="true" />
+            </span>
+          </button>
+        </span>
+        <div class="header__pill header__pill--case">
+          <a href="/" class="header__name">vanya.cfivti</a>
+          <a
+            href="https://disk.yandex.ru/i/v9V2x2n-jw0W7Q"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn--header btn--pill header__resume"
+            aria-label="Открыть резюме"
+          >
+            <span class="btn__text">Резюме</span>
+            <span class="btn__icon" aria-hidden="true">
+              <img src={icons.arrow1} alt="" width="20" height="20" />
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="site-header__row">
+      <div class="header__pill">
+        <button
+          class="btn btn--circle header__burger"
+          id="burger-btn"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          hidden
+        >
+          <span class="burger-icon">
+            <img src={icons.burger} alt="" width="32" height="32" aria-hidden="true" />
+          </span>
+        </button>
+        <a href="/" class="header__name">vanya.cfivti</a>
+        <a
+          href="https://disk.yandex.ru/i/v9V2x2n-jw0W7Q"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--header btn--pill header__resume"
+          aria-label="Открыть резюме"
+        >
+          <span class="btn__text">Резюме</span>
+          <span class="btn__icon" aria-hidden="true">
+            <img src={icons.arrow1} alt="" width="20" height="20" />
+          </span>
+        </a>
+      </div>
+    </div>
+  )}
+
+  <div class="mobile-menu" id="mobile-menu" aria-hidden="true" role="dialog" aria-label="Меню">
+    <nav class="mobile-menu__nav">
+      <a href="/" class="mobile-menu__link">
+        <span class="mobile-menu__link-text">На главную страницу</span>
+        <img class="mobile-menu__link-icon" src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
+      </a>
+      <a
+        href="https://disk.yandex.ru/i/v9V2x2n-jw0W7Q"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mobile-menu__link"
+      >
+        <span class="mobile-menu__link-text">Резюме</span>
+        <img class="mobile-menu__link-icon" src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-block: 16px;
+  pointer-events: none;
+}
+
+.site-header__backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--color-white-3000) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+.site-header__backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+.site-header__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 815px;
+  max-width: calc(100% - 40px);
+  margin-inline: auto;
+  pointer-events: auto;
+  position: relative;
+}
+
+/* Case header — AL0 */
+.header-case-al0 {
+  width: 815px;
+  max-width: calc(100% - 40px);
+  margin-inline: auto;
+  min-height: 68px;
+  align-items: center;
+}
+
+.header-case-al1 {
+  flex-shrink: 0;
+}
+
+.header-case-al2 {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.header__pill {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 68px;
+  border-radius: 100px;
+  padding: 10px 10px 10px 24px;
+  background: var(--color-white-3050);
+  backdrop-filter: var(--effect-header-blur);
+  -webkit-backdrop-filter: var(--effect-header-blur);
+  box-shadow: var(--effect-header-shadow);
+}
+
+.header__pill--case {
+  width: 100%;
+}
+
+.header__name {
+  font: var(--text-header-3);
+  color: var(--color-black-1000);
+  text-decoration: none;
+}
+
+.header__resume {
+  flex-shrink: 0;
+  height: 48px;
+}
+
+.header__burger {
+  display: none;
+  flex-shrink: 0;
+}
+
+.header__burger--case {
+  display: none;
+}
+
+.burger-back {
+  display: none;
+}
+
+.header__burger[aria-expanded="true"] .burger-icon {
+  display: none;
+}
+
+.header__burger[aria-expanded="true"] .burger-back {
+  display: inline-flex;
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-white-3000);
+  flex-direction: column;
+  justify-content: center;
+  padding-inline: 24px;
+  padding-block: 80px;
+  pointer-events: auto;
+}
+
+.mobile-menu[aria-hidden="false"] {
+  display: flex;
+}
+
+.mobile-menu__nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 20px;
+  font: var(--text-button-1);
+  color: var(--color-black-1000);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-grey-2050);
+}
+
+.mobile-menu__link:first-child {
+  border-top: 1px solid var(--color-grey-2050);
+}
+
+.mobile-menu__link:hover {
+  color: var(--color-accent-blue-4050);
+}
+
+.mobile-menu__link-icon {
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.mobile-menu__link:hover .mobile-menu__link-icon {
+  opacity: 1;
+  filter: invert(28%) sepia(98%) saturate(5000%) hue-rotate(222deg);
+}
+
+@media (max-width: 1023px) {
+  .site-header__row,
+  .header-case-al0 {
+    width: min(800px, calc(100% - 40px));
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 744px) {
+  .site-header__row,
+  .header-case-al0 {
+    width: min(640px, calc(100% - 40px));
+  }
+}
+
+@media (max-width: 440px) {
+  .site-header__row,
+  .header-case-al0 {
+    width: calc(100% - 48px);
+    max-width: 656px;
+    margin-inline: 24px;
+  }
+
+  /* Main page — pill на всю ширину контента */
+  .site-header.variant-home .header__pill {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* Case page — AL0 с заливкой; бургер слева, свитч справа */
+  .site-header.variant-case .header-case-al0 {
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0;
+    width: calc(100% - 48px);
+    padding: 8px 12px;
+    border-radius: 100px;
+    background: var(--color-white-3050);
+    backdrop-filter: var(--effect-header-blur);
+    -webkit-backdrop-filter: var(--effect-header-blur);
+    box-shadow: var(--effect-header-shadow);
+  }
+
+  /* Только у обёртки переключателя — без своей белой заливки и тени */
+  .site-header.variant-case .header-case-al1 :global(.keyword-switch__frame) {
+    width: auto;
+    height: auto;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .site-header.variant-case .header-case-al2 {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .site-header.variant-case .header__pill--case {
+    display: none;
+  }
+
+  .site-header.variant-case .header__burger--case {
+    display: inline-flex;
+  }
+
+  .header__burger-frame {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 100px;
+    border: 1px solid #bfbfbf;
+    flex-shrink: 0;
+  }
+
+  .header__burger-frame .header__burger {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+  }
+}
+</style>
+
+<script>
+  const burgerBtn = document.getElementById('burger-btn') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (burgerBtn && mobileMenu) {
+    burgerBtn.addEventListener('click', () => {
+      const isOpen = burgerBtn.getAttribute('aria-expanded') === 'true';
+      burgerBtn.setAttribute('aria-expanded', String(!isOpen));
+      burgerBtn.setAttribute('aria-label', !isOpen ? 'Закрыть меню' : 'Открыть меню');
+      mobileMenu.setAttribute('aria-hidden', String(isOpen));
+      document.body.style.overflow = !isOpen ? 'hidden' : '';
+    });
+
+    mobileMenu.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => {
+        burgerBtn.setAttribute('aria-expanded', 'false');
+        burgerBtn.setAttribute('aria-label', 'Открыть меню');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    });
+  }
+
+  const keywordSwitch = document.getElementById('keyword-switch');
+  if (keywordSwitch) {
+    keywordSwitch.addEventListener('click', () => {
+      const keywordsOn = keywordSwitch.getAttribute('aria-pressed') !== 'true';
+      keywordSwitch.setAttribute('aria-pressed', String(keywordsOn));
+      document.body.classList.toggle('synopsis-mode', keywordsOn);
+    });
+  }
+</script>

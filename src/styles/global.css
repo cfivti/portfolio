@@ -1,0 +1,226 @@
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: 'Onest', sans-serif;
+  background: var(--color-white-3000);
+  color: var(--color-black-1000);
+  min-height: 100vh;
+}
+
+img, video { display: block; max-width: 100%; }
+
+a { color: inherit; }
+
+/* ── Content wrap ── */
+.content-wrap {
+  width: 800px;
+  max-width: calc(100% - 40px);
+  margin-inline: auto;
+}
+
+@media (max-width: 1023px) {
+  .content-wrap {
+    width: min(800px, 100%);
+    max-width: calc(100% - 40px);
+    margin-inline: auto;
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 744px) {
+  .content-wrap {
+    width: min(640px, calc(100% - 40px));
+    max-width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 440px) {
+  .content-wrap {
+    width: auto;
+    max-width: none;
+    padding-inline: 24px;
+  }
+}
+
+/* ── Buttons (fixed size, no fill on hover) ── */
+.btn {
+  box-sizing: border-box;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-black-1050);
+  color: var(--color-black-1050);
+  font: var(--text-button-2);
+  cursor: pointer;
+  text-decoration: none;
+  transition: none;
+  white-space: nowrap;
+}
+
+.btn--page {
+  width: 95px;
+  height: 46px;
+  border-radius: 8px;
+  font: var(--text-button-1);
+}
+
+.btn--header,
+.btn--pill {
+  width: 118px;
+  height: 40px;
+  border-radius: 100px;
+}
+
+.btn--circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+}
+
+/* Text + icon occupy same cell — size never changes */
+.btn .btn__text,
+.btn .btn__icon {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn .btn__icon {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.btn .btn__icon img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.btn:hover {
+  background: transparent;
+  color: var(--color-black-1000);
+  border-color: var(--color-black-1000);
+}
+
+.btn:hover .btn__text {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.btn:hover .btn__icon {
+  opacity: 1;
+  visibility: visible;
+}
+
+.btn--circle:hover {
+  background: transparent;
+  border-color: transparent;
+  color: inherit;
+}
+
+.btn--circle .btn__text,
+.btn--circle .btn__icon {
+  display: none;
+}
+
+/* ── Body 1 (20px) — все текстовые блоки кейсов ── */
+.case-body-text,
+.case-prose p,
+.case-prose .case-pair__text,
+.case-prose .case-list li,
+.case-list li > span:not(.case-list__num) {
+  font: var(--text-body-1);
+  color: var(--color-black-1000);
+  opacity: 1;
+}
+
+/* ── Synopsis mode (страницы кейсов) ── */
+/* Яркость только через color на span — не opacity на p (иначе .key остаётся серым) */
+.case-prose .syn,
+.case-prose .key,
+.case-body-text .key {
+  opacity: 1;
+  transition: color 0.2s ease;
+}
+
+body:not(.synopsis-mode) .case-prose .syn,
+body:not(.synopsis-mode) .case-prose .key,
+body:not(.synopsis-mode) .case-body-text {
+  color: var(--color-black-1000);
+}
+
+body:not(.synopsis-mode) .case-body-text .key {
+  color: var(--color-black-1000);
+}
+
+body.synopsis-mode .case-prose p,
+body.synopsis-mode .case-prose .case-pair__text {
+  opacity: 1;
+  color: var(--color-black-1000);
+}
+
+body.synopsis-mode .case-prose .syn {
+  color: rgba(0, 0, 0, var(--text-opacity-dim));
+}
+
+body.synopsis-mode .case-prose .key,
+body.synopsis-mode .case-body-text .key,
+body.synopsis-mode .case-list .key {
+  color: #000000;
+  opacity: 1;
+}
+
+body.synopsis-mode .case-body-text {
+  color: rgba(0, 0, 0, var(--text-opacity-dim));
+}
+
+.case-prose .case-h1,
+.case-prose .case-h2,
+.case-tbl th,
+.case-tbl td {
+  color: var(--color-black-1000);
+  opacity: 1;
+}
+
+/* ── Scroll-in animation ── */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.animate-in.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Tables ── */
+.tbl-scroll-wrap { overflow-x: auto; }
+
+.tbl th:first-child,
+.tbl td:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: var(--color-white-3000);
+}
+
+@media (min-width: 1024px) {
+  .tbl-scroll-wrap { overflow-x: visible; }
+  .tbl th:first-child,
+  .tbl td:first-child {
+    position: static;
+    z-index: auto;
+  }
+}

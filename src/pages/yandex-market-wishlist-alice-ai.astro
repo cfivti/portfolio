@@ -1,0 +1,505 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import { icons } from '../lib/icons';
+import { yandexUserFlow, yandexPrototype, yandexGallery } from '../lib/yandex-images';
+import '../styles/case-page.css';
+---
+
+<BaseLayout title="Вишлист Alice AI | Яндекс Маркет — vanya.cfivti">
+  <Header variant="case" />
+
+  <main>
+    <article class="case-content content-wrap">
+
+      <div class="case-title-row">
+        <h1 class="case-title">Вишлист Alice AI | Яндекс Маркет</h1>
+        <a
+          href="https://www.figma.com/design/cTe1zp00A0Mvw5WmnPFJUa/%D0%92%D0%B8%D1%88%D0%BB%D0%B8%D1%81%D1%82-AI-%7C-%D0%AF%D0%BD%D0%B4%D0%B5%D0%BA%D1%81?node-id=1-2&t=b4MomnGTMLelkMn2-1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--page btn--figma"
+          aria-label="Открыть проект в Figma"
+        >
+          <span class="btn__text">Figma</span>
+          <span class="btn__icon" aria-hidden="true">
+            <img src={icons.arrow1} alt="" width="32" height="32" />
+          </span>
+        </a>
+      </div>
+
+      <div class="case-body case-prose yandex-case">
+
+        <section class="case-section">
+          <h2 class="case-h1">О проекте</h2>
+          <p>
+            <span class="key">Вишлист Alice AI</span><span class="syn"> — это </span><span class="key">кампания по повышению конкурентоспособности маркетплейса</span><span class="syn"> в </span><span class="key">новогодние праздники,</span><span class="syn"> а также </span><span class="key">метод обучения Алисы</span><span class="syn"> эмпатии и лучшему </span><span class="key">пониманию пользователей.</span>
+          </p>
+        </section>
+
+        <section class="case-section">
+          <h2 class="case-h1">Актуальность</h2>
+          <p>
+            <span class="key">Wishlist Alice AI</span><span class="syn"> обретает актуальность в </span><span class="key">дни подготовки к Новому году,</span><span class="syn"> так как люди всё чаще </span><span class="key">покупают подарки онлайн</span><span class="syn"> и на рынке начинают ещё больше доминировать </span><span class="key">Ozon и Wildberries.</span>
+          </p>
+          <p>
+            <span class="syn">Также популярностью пользуются </span><span class="key">сервисы со списками подарков.</span><span class="syn"> Я объединил идею </span><span class="key">вишлистов и маркетплейса</span><span class="syn"> с идеей </span><span class="key">привлечь больше внимания аудитории</span><span class="syn"> к сервису в Новый год.</span>
+          </p>
+
+          <h3 class="case-h2">Польза бизнесу</h3>
+          <div class="case-stack-tight">
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">1)</span>
+              <p class="case-pair__text">
+                <span class="key">Возвращение ушедших пользователей</span><span class="syn"> и закрепление существующих.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num case-pair__num--spacer" aria-hidden="true">1)</span>
+              <p class="case-pair__text">
+                <span class="key">Выделение маркетплейса среди конкурентов</span><span class="syn"> в канун праздника.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">2)</span>
+              <p class="case-pair__text">
+                <span class="key">Обучение Alice AI</span><span class="syn"> на основе данных профиля пользователей.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">3)</span>
+              <p class="case-pair__text">
+                <span class="key">Реклама Яндекс Маркета —</span><span class="syn"> ивент освещается в рекламах, </span><span class="key">пользователи делают обзоры в соцсетях</span><span class="syn"> и делятся вишлистами и результатами.</span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2 class="case-h1">Целевая аудитория</h2>
+          <p>
+            <span class="syn">Аудиторию определял по </span><span class="key">статьям продавцов, маркетологов и дизайнеров</span><span class="syn"> в интернете, материал разделил на </span><span class="key">сегменты аудитории.</span>
+          </p>
+
+          <h3 class="case-h2">Сегменты аудитории</h3>
+          <div class="case-stack-tight">
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">1)</span>
+              <p class="case-pair__text">
+                <span class="key">Молодёжь 18–25 лет —</span><span class="syn"> могут позволить себе покупку подарка </span><span class="key">без крупного финансового удара.</span><span class="syn"> Часто у них есть дети, и </span><span class="key">вишлист помогает узнать, чего хочет ребёнок —</span><span class="syn"> дети стесняются говорить о желаниях </span><span class="syn">или просто не знают, что сказать.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">2)</span>
+              <p class="case-pair__text">
+                <span class="key">Взрослые 26–35 лет —</span><span class="key"> финансовое положение нестабильное,</span><span class="syn"> но это редко становится барьером для покупки подарка.</span><span class="key"> Ключевая мотивация — эмоциональная:</span><span class="syn"> люди этого возраста любят узнавать что-то новое о себе,</span><span class="key"> а архетип от Alice AI это предоставляет.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">3)</span>
+              <p class="case-pair__text">
+                <span class="key">Любители выгоды —</span><span class="key"> Новый год — повод для больших скидок,</span><span class="syn"> и эта аудитория активно этим пользуется.</span><span class="syn"> Вишлист даёт продавцам понимание спроса,</span><span class="key"> а покупателям —</span><span class="syn"> список желаний по выгодной цене.</span>
+              </p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">4)</span>
+              <p class="case-pair__text">
+                <span class="key">Старшее поколение 55+ —</span><span class="key"> балуют внуков и готовы тратить,</span><span class="syn"> несмотря на ограниченный бюджет.</span><span class="syn"> Вишлист помогает понять, что интересно внукам,</span><span class="key"> и найти подходящий вариант</span><span class="syn"> в рамках своих возможностей.</span>
+              </p>
+            </div>
+          </div>
+
+          <h3 class="case-h2">Jobs To Be Done</h3>
+          <div class="tbl-scroll-wrap tbl-wrap--center">
+            <div class="tbl-wrap--jtdb">
+              <table class="tbl case-tbl">
+                <thead>
+                  <tr>
+                    <th>Персона</th>
+                    <th>Контекст</th>
+                    <th>Мотивация</th>
+                    <th>Результат</th>
+                    <th>Риски</th>
+                    <th>Решение</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Персона 1</td>
+                    <td>Приближается Новый год и П1 не знает, что дарить отцу</td>
+                    <td>Найти подсказку о его интересах</td>
+                    <td>Не угадывать вслепую и подарить что-то нужное</td>
+                    <td>Подарок окажется слишком дорогим или совсем не подходящим</td>
+                    <td>Увидел вишлист папы, сформированный Alice AI, понял какие у него интересы и нашёл подходящий по бюджету подарок</td>
+                  </tr>
+                  <tr>
+                    <td>Персона 2</td>
+                    <td>Мы с подругами договариваемся обменяться подарками</td>
+                    <td>Поделиться списком того, что мне нравится</td>
+                    <td>Никто не потратил деньги на бесполезную вещь</td>
+                    <td>Подруга купит не то или потратит больше, чем планировала</td>
+                    <td>Персональный вишлист, которым можно поделиться ссылкой</td>
+                  </tr>
+                  <tr>
+                    <td>Персона 3</td>
+                    <td>Приближается Новый год и я планирую праздник с большой компанией</td>
+                    <td>Быстро скоординировать подарки между всеми</td>
+                    <td>Никто не подарил одно и то же и не возникло неловкости</td>
+                    <td>Два человека купят одинаковый подарок</td>
+                    <td>Механика бронирования — замок на карточке товара</td>
+                  </tr>
+                  <tr>
+                    <td>Персона 4</td>
+                    <td>Кто-то из семьи хочет порадовать ребёнка подарком</td>
+                    <td>Видеть актуальный список его желаний через семейную подписку</td>
+                    <td>Не тратить время на расспросы и не испортить сюрприз</td>
+                    <td>Ребёнок узнает о подарке заранее</td>
+                    <td>Не показывать пользователю забронированные подарки</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2 class="case-h1">Конкуренты</h2>
+          <p>
+            Описал jobs To Be Done и так же учёл возможные риски и страхи, которые могут отпугивать пользователей от использования сервисом.
+          </p>
+
+          <h3 class="case-h2">Стриминговые сервисы</h3>
+          <div class="tbl-scroll-wrap tbl-wrap--center">
+            <div class="tbl-wrap--stream">
+              <table class="tbl case-tbl">
+                <thead>
+                  <tr>
+                    <th>Сервис</th>
+                    <th>Контекст</th>
+                    <th>Эффект</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Spotify</td>
+                    <td>Каждый год Spotify придумывает новую механику, которая не повторяет прошлый год.</td>
+                    <td>Увеличение скачиваний на 21%, шеринг на 41%.</td>
+                  </tr>
+                  <tr>
+                    <td>Яндекс Музыка</td>
+                    <td>«Итоги года» с персональной статистикой, карточками и AI-рекомендациями.</td>
+                    <td>Пользователи делятся итогами — это стимулирует возврат в приложение.</td>
+                  </tr>
+                  <tr>
+                    <td>Apple Music</td>
+                    <td>Replay: статистика по артистам и трекам, персональные плейлисты.</td>
+                    <td>Взлёты прослушиваний у отдельных артистов на площадке.</td>
+                  </tr>
+                  <tr>
+                    <td>Netflix</td>
+                    <td>Публикует популярные жанры вместо персональной статистики пользователя.</td>
+                    <td>Повышает спрос на жанры года в новогодние праздники.</td>
+                  </tr>
+                  <tr>
+                    <td>Кинопоиск</td>
+                    <td>«Персональные титры» — Alice AI генерирует постер и логлайн фильма с пользователем в главной роли.</td>
+                    <td>Фидбек был неоднозначный: пользователи ждали привычную статистику.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <h3 class="case-h2">Основные тейки</h3>
+          <div class="case-stack-tight">
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">1)</span>
+              <p class="case-pair__text">Добавить систему бронирования подарков</p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">2)</span>
+              <p class="case-pair__text">AI список не должен иметь ощущение слежки. Пользователю надо преподнести вишлист не как «мы знаем всё о вас», а как рекомендации на основе взаимодействия с другими сервисами Яндекса.</p>
+            </div>
+            <div class="case-pair case-pair--inline">
+              <span class="case-pair__num">3)</span>
+              <p class="case-pair__text">Кампания должна делать фокус на взаимодействии людей и сервиса, но не с AI.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2 class="case-h1">User Flow и прототипирование</h2>
+
+          <div class="case-media case-media--flow">
+            <picture>
+              <source media="(max-width: 440px)" srcset={yandexUserFlow.mobile} />
+              <source media="(max-width: 744px)" srcset={yandexUserFlow.tablet} />
+              <img src={yandexUserFlow.desktop} alt="User Flow" width="1200" height="700" loading="eager" decoding="async" />
+            </picture>
+          </div>
+
+          <div class="case-media case-media--prototype">
+            <picture>
+              <source media="(max-width: 440px)" srcset={yandexPrototype.mobile} />
+              <source media="(max-width: 744px)" srcset={yandexPrototype.tablet} />
+              <img src={yandexPrototype.desktop} alt="Прототип экранов" width="1200" height="528" loading="eager" decoding="async" />
+            </picture>
+          </div>
+        </section>
+
+        <section class="case-section">
+          <h2 class="case-h1">Результат</h2>
+
+          <div class="case-gallery-stack">
+            <div class="case-gallery-grid">
+              {yandexGallery.map((item, i) => (
+                <picture class={`case-gallery-grid__item case-gallery-grid__item--${i + 1}`}>
+                  <source media="(max-width: 440px)" srcset={item.mobile} />
+                  <source media="(max-width: 744px)" srcset={item.tablet} />
+                  <img
+                    src={item.desktop}
+                    alt={item.alt}
+                    width="595"
+                    height="442"
+                    loading="eager"
+                    decoding="async"
+                  />
+                </picture>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </article>
+
+  </main>
+</BaseLayout>
+
+<style>
+.yandex-case {
+  width: 100%;
+}
+
+/* Выход за колонку текста 800px → медиа 1200px */
+.yandex-case .case-media,
+.yandex-case .case-gallery-stack {
+  --case-media-w: min(1200px, calc(100vw - 40px));
+  width: var(--case-media-w);
+  max-width: var(--case-media-w);
+  margin-inline: calc((100% - var(--case-media-w)) / 2);
+}
+
+.case-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 48px 40px;
+}
+
+.case-title {
+  font: var(--text-title-1);
+  color: var(--color-black-1000);
+  flex: 1;
+}
+
+.btn--figma {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 6px;
+}
+
+.case-body {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding-bottom: 40px;
+}
+
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.case-h1 {
+  font: var(--text-header-1);
+  color: var(--color-black-1000);
+}
+
+.case-h2 {
+  font: var(--text-header-2);
+  color: var(--color-black-1000);
+  margin-top: 8px;
+}
+
+.case-stack-tight {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.tbl-wrap--center {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.tbl-wrap--jtdb {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.tbl-wrap--stream {
+  width: 100%;
+  max-width: 800px;
+}
+
+.case-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--text-table-body-1);
+}
+
+.case-tbl th,
+.case-tbl td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-grey-2050);
+  vertical-align: top;
+}
+
+.case-tbl thead th {
+  font: var(--text-description-1);
+  color: var(--color-black-1050);
+  border-bottom: 1px solid var(--color-black-1000);
+}
+
+.case-tbl tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.case-media {
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-grey-2050);
+}
+
+.case-media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  object-position: center top;
+}
+
+.case-media--flow {
+  aspect-ratio: 1200 / 700;
+}
+
+.case-media--prototype {
+  aspect-ratio: 1200 / 528;
+}
+
+.case-gallery-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.case-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 595px);
+  gap: 16px;
+  width: 100%;
+  justify-content: center;
+}
+
+.case-gallery-grid__item {
+  display: block;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--color-grey-2050);
+  width: 595px;
+  max-width: 100%;
+  height: 442px;
+}
+
+.case-gallery-grid__item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+}
+
+@media (max-width: 744px) {
+  .case-media--flow {
+    aspect-ratio: 640 / 420;
+  }
+
+  .case-media--prototype {
+    aspect-ratio: 640 / 397;
+  }
+
+  .yandex-case .case-gallery-stack {
+    --case-media-w: min(900px, calc(100vw - 40px));
+  }
+
+  .case-gallery-grid__item {
+    width: 100%;
+    max-width: 900px;
+    height: 580px;
+    margin-inline: auto;
+  }
+
+  .case-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tbl-wrap--jtdb {
+    max-width: 900px;
+  }
+}
+
+@media (max-width: 440px) {
+  .yandex-case .case-media,
+  .yandex-case .case-gallery-stack {
+    --case-media-w: 100%;
+    margin-inline: 0;
+  }
+
+  .case-media--flow {
+    aspect-ratio: auto;
+    min-height: 400px;
+  }
+
+  .case-media--prototype {
+    aspect-ratio: auto;
+    height: 176px;
+    min-height: 176px;
+  }
+
+  .case-gallery-grid__item {
+    width: 100%;
+    max-width: none;
+    height: 480px;
+  }
+
+  .case-title-row {
+    flex-direction: column;
+    gap: 16px;
+    padding-block: 32px 24px;
+  }
+
+  .case-title {
+    font-size: 28px;
+  }
+
+  .case-body {
+    gap: 48px;
+  }
+}
+</style>

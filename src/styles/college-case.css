@@ -1,0 +1,248 @@
+/*
+  Div Block: Fill, padding 60px
+  AL0: 800px (D/hT) | 640px (vT)
+  Широкие изображения: 1200px (D/hT) | 640px (vT)
+*/
+
+.college-case {
+  width: 100%;
+}
+
+.college-block {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.college-al0 {
+  box-sizing: border-box;
+  width: 800px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.college-al0--gap-20 {
+  gap: 20px;
+}
+
+.college-block--context .college-al0 {
+  gap: 30px;
+}
+
+.college-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.college-section .case-h1,
+.college-block--audience .case-h1,
+.college-block--result .case-h1 {
+  margin: 0;
+}
+
+.college-section > p,
+.college-al0 > p,
+.college-block--competitors .case-list {
+  margin: 0;
+  font: var(--text-body-1);
+  color: var(--color-black-1000);
+}
+
+.college-audience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.college-audience-list .case-pair--inline {
+  margin: 0;
+}
+
+.college-block--competitors {
+  gap: 20px;
+}
+
+.college-block--competitors .case-list {
+  gap: 20px;
+}
+
+.college-block--competitors .case-h1 {
+  margin: 0;
+}
+
+.college-block--result {
+  padding-bottom: 40px;
+  gap: 20px;
+}
+
+.college-media-wide {
+  box-sizing: border-box;
+  width: 1200px;
+  max-width: 100%;
+  margin-inline: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-grey-2050);
+  user-select: none;
+}
+
+.college-media-wide--konkurenti {
+  aspect-ratio: 1200 / 700;
+}
+
+.college-media-wide img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.college-gallery-wrap {
+  box-sizing: border-box;
+  width: 1206px;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.college-gallery-al0 {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+  width: 100%;
+}
+
+.college-gallery-al1 {
+  width: 1200px;
+  max-width: 100%;
+  align-self: center;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-grey-2050);
+  aspect-ratio: 1200 / 700;
+  user-select: none;
+}
+
+.college-scroll-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  background: var(--color-grey-2050);
+  pointer-events: none;
+}
+
+.college-gallery-al2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 595px);
+  gap: 16px;
+  justify-content: center;
+}
+
+.college-gallery-al2__item {
+  display: block;
+  width: 595px;
+  height: 442px;
+  max-width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-grey-2050);
+  user-select: none;
+}
+
+.college-gallery-al2__item img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+}
+
+@media (max-width: 744px) {
+  .college-block {
+    padding: 60px 40px;
+  }
+
+  .college-al0 {
+    width: 640px;
+  }
+
+  .college-media-wide {
+    width: 640px;
+  }
+
+  .college-media-wide--konkurenti {
+    aspect-ratio: 640 / 420;
+  }
+
+  .college-gallery-wrap {
+    width: 640px;
+  }
+
+  .college-gallery-al1 {
+    width: 100%;
+    align-self: stretch;
+    aspect-ratio: 640 / 420;
+  }
+
+  .college-gallery-al2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .college-gallery-al2__item {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 595 / 442;
+  }
+}
+
+@media (max-width: 440px) {
+  .college-block {
+    padding: 40px 24px;
+  }
+
+  .college-al0 {
+    width: 100%;
+  }
+
+  .college-media-wide {
+    width: 100%;
+  }
+
+  .college-media-wide--konkurenti {
+    aspect-ratio: auto;
+    min-height: 400px;
+  }
+
+  .college-gallery-wrap {
+    width: 100%;
+  }
+
+  .college-gallery-al1 {
+    aspect-ratio: auto;
+    min-height: 280px;
+  }
+
+  .college-gallery-al2 {
+    grid-template-columns: 1fr;
+  }
+
+  .college-gallery-al2__item {
+    width: 100%;
+    height: 480px;
+    aspect-ratio: auto;
+  }
+}
