@@ -6,7 +6,6 @@ import ComingSoonModal from '../components/ComingSoonModal.astro';
 import { icons } from '../lib/icons';
 import { yandexCovers } from '../lib/yandex-images';
 import { collegeCovers } from '../lib/college-images';
-import { lumaCovers } from '../lib/luma-images';
 import { withBase } from '../lib/paths';
 
 const cases = [
@@ -22,13 +21,6 @@ const cases = [
     href: withBase('/yandex-market-wishlist-alice-ai'),
     cover: yandexCovers,
   },
-  {
-    title: 'Задизайнил приложения для умного дома LUMA ThinQ',
-    type: 'Pet-проект',
-    href: '#',
-    comingSoon: true,
-    cover: lumaCovers,
-  },
 ];
 ---
 
@@ -41,10 +33,10 @@ const cases = [
 
         <div class="hero__col hero__col--left">
           <div class="hero__row hero__row--top">
-            <p class="hero__bio">
-              Привет, я Junior UX/UI Дизайнер.<br />
+            <h1 class="hero__bio">
+              Привет, я Ваня — Product дизайнер.<br />
               Это моё портфолио.
-            </p>
+            </h1>
             <span class="hero__num" aria-hidden="true">[ 1 ]</span>
           </div>
           <p class="hero__location">
@@ -66,6 +58,10 @@ const cases = [
               </a>
               <a href="mailto:cfivti@gmail.com" class="hero__link">
                 Email
+                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
+              </a>
+              <a href="https://www.linkedin.com/in/ivan-kolesnikov-89606a31a/" target="_blank" rel="noopener noreferrer" class="hero__link">
+                LinkedIn
                 <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
               </a>
             </nav>
