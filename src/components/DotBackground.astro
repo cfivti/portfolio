@@ -1,0 +1,175 @@
+<canvas class="dot-background" aria-hidden="true"></canvas>
+
+<style>
+  .dot-background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: #080808;
+  }
+</style>
+
+<script>
+  const canvas = document.querySelector<HTMLCanvasElement>('.dot-background');
+  const ctx = canvas?.getContext('2d');
+  if (canvas && ctx) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const spacing = 23;
+    let covered = false;
+    const symbols = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzЖФДЯЮБИабжλΩΣπΔψ0123456789@#$%&*+=!?<>/{}[]');
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let last = 0;
+    let time = 0;
+    const smooth = (value: number) => value * value * (3 - 2 * value);
+    function random(seed: number) {
+      const value = Math.sin(seed * 127.1 + 311.7) * 43758.5453;
+      return value - Math.floor(value);
+    }
+    // Independent, smoothly interpolated values: no shared travelling phase.
+    function noise(seed: number, clock: number) {
+      const tick = Math.floor(clock);
+      const blend = smooth(clock - tick);
+      return random(seed + tick * 73.9) * (1 - blend)
+        + random(seed + (tick + 1) * 73.9) * blend;
+    }
+
+    function resize() {
+      width = canvas!.clientWidth;
+      height = canvas!.clientHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas!.width = Math.round(width * dpr);
+      canvas!.height = Math.round(height * dpr);
+      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+      requestDraw();
+    }
+
+    function draw(now: number) {
+      frame = 0;
+      if (!reducedMotion.matches && now - last < 1000 / 30) { requestDraw(); return; }
+      const dt = Math.min((now - last) / 1000, 0.05);
+      last = now;
+      if (!reducedMotion.matches) time += dt;
+      ctx!.clearRect(0, 0, width, height);
+      ctx!.font = '16px "Consolas", "Segoe UI Symbol", monospace';
+      ctx!.textAlign = 'center';
+      ctx!.textBaseline = 'middle';
+
+      const columns = Math.ceil(width / spacing);
+      const rows = Math.ceil(height / spacing);
+      const offsetX = (width - (columns - 1) * spacing) / 2;
+      const offsetY = (height - (rows - 1) * spacing) / 2;
+      // Fixed local bands swell independently, like an audio spectrum.
+      const bandCount = Math.max(6, Math.ceil(width / 125));
+      const bands = Array.from({ length: bandCount }, (_, index) => {
+        const seed = index * 19.37 + 7;
+        const level = noise(seed, time * (0.65 + random(seed) * 0.45));
+        return {
+          center: (index + 0.2 + random(seed + 1) * 0.6) / bandCount,
+          spread: (0.45 + random(seed + 2) * 0.45) / bandCount,
+          level,
+        };
+      });
+      const columnLevels = Array.from({ length: columns }, (_, col) => {
+        const position = (offsetX + col * spacing) / width;
+        return Math.max(...bands.map(band => band.level
+          * Math.exp(-Math.pow((position - band.center) / band.spread, 2))));
+      });
+      const crestAt = (level: number) => height * (0.77 - level * 0.27 - Math.pow(level, 10) * 0.08);
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < columns; col++) {
+          const px = offsetX + col * spacing;
+          const py = offsetY + row * spacing;
+          const level = columnLevels[col];
+          // Low, independent peaks leave the upper screen quiet.
+          const crest = crestAt(level);
+          // A short feather keeps the wave visible near its actual crest.
+          const depth = Math.max(0, Math.min(1,
+            (py - crest) / (height * 0.14)));
+          const wave = depth * depth * (3 - 2 * depth);
+          if (wave === 0) { ctx!.fillStyle = '#141414'; ctx!.fillRect(px - 1.2, py - 1.2, 2.4, 2.4); continue; }
+          const local = noise(col * 11.71 + row * 29.13, time * 0.95);
+          const size = 1.2 + wave * (0.45 + local * 0.55) * 8.3;
+          // Cut the four corners inward: square -> concave four-point star.
+          // A 19px cell on a 23px grid leaves at least a 4px gap.
+          const phase = noise(col * 43.17 + row * 17.31 + 91, time * 0.85);
+          const morph = smooth(Math.max(0, Math.min(1, (phase - 0.15) / 0.7)));
+          const cut = size * morph * wave;
+          const control = cut * 0.55228475;
+          // Staggered occasional substitutions; each glyph stays fixed for its event.
+          const cellSeed = col * 137.31 + row * 271.79;
+          const symbolClock = time / 3 + random(cellSeed) * 11;
+          const symbolCycle = Math.floor(symbolClock);
+          const symbolProgress = (symbolClock - symbolCycle) * 3;
+          const showSymbol = !reducedMotion.matches
+            && random(cellSeed + symbolCycle * 53.17) > 0.95;
+          const symbolMix = showSymbol
+            ? smooth(Math.max(0, Math.min(1, symbolProgress / 0.2)))
+              * smooth(Math.max(0, Math.min(1, (1.4 - symbolProgress) / 0.3)))
+              * wave
+            : 0;
+          const base = 20 + wave * 20;
+          ctx!.fillStyle = `rgb(${base}, ${base}, ${base})`;
+          ctx!.globalAlpha = 1 - symbolMix;
+          ctx!.beginPath();
+          const left = px - size;
+          const right = px + size;
+          const top = py - size;
+          const bottom = py + size;
+          ctx!.moveTo(left + cut, top);
+          ctx!.lineTo(right - cut, top);
+          ctx!.bezierCurveTo(right - cut, top + control, right - control, top + cut, right, top + cut);
+          ctx!.lineTo(right, bottom - cut);
+          ctx!.bezierCurveTo(right - control, bottom - cut, right - cut, bottom - control, right - cut, bottom);
+          ctx!.lineTo(left + cut, bottom);
+          ctx!.bezierCurveTo(left + cut, bottom - control, left + control, bottom - cut, left, bottom - cut);
+          ctx!.lineTo(left, top + cut);
+          ctx!.bezierCurveTo(left + control, top + cut, left + cut, top + control, left + cut, top);
+          ctx!.closePath();
+          ctx!.fill();
+          if (symbolMix > 0) {
+            const glyph = symbols[Math.floor(random(cellSeed + symbolCycle * 97.13 + 5) * symbols.length)];
+            ctx!.globalAlpha = symbolMix;
+            ctx!.fillStyle = '#5f5f5f';
+            ctx!.fillText(glyph, px, py, spacing - 4);
+          }
+          ctx!.globalAlpha = 1;
+        }
+      }
+      if (!reducedMotion.matches) requestDraw();
+    }
+
+    function requestDraw() {
+      if (!frame && !document.hidden && !covered) frame = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize, { passive: true });
+    new ResizeObserver(resize).observe(canvas);
+    reducedMotion.addEventListener('change', requestDraw);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+
+      } else {
+        last = performance.now();
+        requestDraw();
+      }
+    });
+    const plate = document.querySelector('.projects-plate');
+    function checkCoverage() {
+      const next = !!plate && plate.getBoundingClientRect().top <= -48;
+      if (next === covered) return;
+      covered = next;
+      if (covered) { cancelAnimationFrame(frame); frame = 0; }
+      else { last = performance.now(); requestDraw(); }
+    }
+    window.addEventListener('scroll', checkCoverage, { passive: true });
+    checkCoverage();
+    resize();
+  }
+</script>
+

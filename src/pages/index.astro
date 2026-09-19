@@ -1,260 +1,204 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
-import CaseCard from '../components/CaseCard.astro';
+import DotBackground from '../components/DotBackground.astro';
 import ComingSoonModal from '../components/ComingSoonModal.astro';
-import { icons } from '../lib/icons';
-import { yandexCovers } from '../lib/yandex-images';
-import { collegeCovers } from '../lib/college-images';
+import { cases } from '../lib/portfolio-cases';
 import { withBase } from '../lib/paths';
-
-const cases = [
-  {
-    title: 'Сделал редизайн лендинга Онлайн-колледжа',
-    type: 'ИнтернетУрок',
-    href: withBase('/made-redesign-landing-of-online-college'),
-    cover: collegeCovers,
-  },
-  {
-    title: 'Яндекс Маркет | Вишлист Alice AI',
-    type: 'Pet-проект',
-    href: withBase('/yandex-market-wishlist-alice-ai'),
-    cover: yandexCovers,
-  },
-];
 ---
 
-<BaseLayout title="vanya.cfivti — портфолио">
-  <Header variant="home" />
-
-  <main>
-    <section class="hero content-wrap">
-      <div class="hero__cols">
-
-        <div class="hero__col hero__col--left">
-          <div class="hero__row hero__row--top">
-            <h1 class="hero__bio">
-              Привет, я Ваня — Product дизайнер.<br />
-              Это моё портфолио.
-            </h1>
-            <span class="hero__num" aria-hidden="true">[ 1 ]</span>
-          </div>
-          <p class="hero__location">
-            <img src={icons.pin} alt="" width="32" height="32" aria-hidden="true" />
-            Москва, Россия
-          </p>
+<BaseLayout title="Vanya Kolesnikov — продуктовый дизайнер">
+  <main class="portfolio-preview">
+  <div class="background-layer" aria-hidden="true">
+    <div class="intro__depth">
+      <DotBackground />
+    </div>
+  </div>
+  <section class="intro" aria-label="Вступление">
+    <div class="preview">
+    <header class="intro-header">
+      <a href={withBase('/')} class="intro-author">Vanya Kolesnikov</a>
+      <a class="intro-resume" href="https://disk.yandex.ru/i/PHs4JDpjQEThkA" target="_blank" rel="noopener noreferrer">Резюме <span aria-hidden="true">↗</span></a>
+    </header>
+    <div class="caption">
+      <h1>Джуниор<br />продуктовый дизайнер.</h1>
+      <p>Изучаю задачи. Проектирую интерфейсы.</p>
+    </div>
+    <span class="signature">ПОРТФОЛИО / ИЗБРАННЫЕ ПРОЕКТЫ</span>
+    </div>
+  </section>
+  <section class="projects-plate" aria-labelledby="projects-heading">
+    <div class="projects-layout">
+      <aside class="about">
+        <header><h2>Иван</h2><p class="about-role">Junior UX/UI дизайнер</p></header>
+        <div class="about-copy">
+          <p>Проектирую сайты и приложения. Учусь превращать сложные задачи в понятные интерфейсы — от первых идей до визуального решения.</p>
+          <p>Здесь делюсь своими концептами и опытом, полученным на практике.</p>
+          <p>Москва, Россия.</p>
         </div>
-
-        <div class="hero__col hero__col--right">
-          <div class="hero__contacts-block">
-            <div class="hero__row hero__row--top hero__contacts-head">
-              <p class="hero__contacts-label">Контакты</p>
-              <span class="hero__num" aria-hidden="true">[ 2 ]</span>
+        <div class="contacts" aria-label="Скопировать контакт">
+          <button class="contact-link" type="button" data-copy="@cfivti" aria-label="Скопировать Telegram @cfivti">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 3.6 18.2 20c-.2 1-1 1.2-1.8.7l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.3L5.8 13.5 1 12c-1-.3-1-1 .2-1.5L20 3.2c.9-.3 1.6.2 1.4.4Z"/></svg>
+            <span>@cfivti</span>
+          </button>
+          <button class="contact-link" type="button" data-copy="cfivti@gmail.com" aria-label="Скопировать почту cfivti@gmail.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg>
+            <span>cfivti@gmail.com</span>
+          </button>
+          <button class="contact-link" type="button" data-copy="Vanya_UXUI" aria-label="Скопировать LinkedIn Vanya_UXUI">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM2.3 9h3.4v12H2.3Zm6 0h3.3v1.6c.8-1.2 1.9-1.9 3.5-1.9 3.5 0 4.6 2.2 4.6 5.6V21h-3.4v-6c0-1.7-.3-3.1-2.2-3.1-2 0-2.4 1.5-2.4 3.1v6H8.3Z"/></svg>
+            <span>Vanya_UXUI</span>
+          </button>
+        </div>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </aside>
+      <div class="projects-column">
+      <header class="projects-header">
+        <h2 id="projects-heading" class="projects-heading">Мои проекты</h2>
+        <p>Тут собраны мои концепты и кейс с практики.</p>
+      </header>
+      <div class="projects-list">
+        {cases.map(project => (
+          <article class="project">
+            {project.comingSoon ? (
+              <button class="project-cover" type="button" data-coming-soon aria-label={`${project.title} — скоро`}>
+                <img src={project.cover.desktop} alt={project.cover.alt ?? project.title} loading="lazy" width="1040" height="620" />
+              </button>
+            ) : (
+              <a class="project-cover" href={withBase(project.href)} aria-label={project.title}>
+                <img src={project.cover.desktop} alt={project.cover.alt ?? project.title} loading="lazy" width="1040" height="620" />
+              </a>
+            )}
+            <div class="project-caption">
+              <div><h3>{project.title}</h3><p>{project.type}</p></div>
+              {project.comingSoon ? <button class="project-open" type="button" data-coming-soon>Скоро</button> : <a class="project-open" href={withBase(project.href)}>Открыть ↗</a>}
             </div>
-            <nav class="hero__links" aria-label="Контакты">
-              <a href="https://t.me/cfivti" target="_blank" rel="noopener noreferrer" class="hero__link">
-                Telegram
-                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
-              </a>
-              <a href="mailto:cfivti@gmail.com" class="hero__link">
-                Email
-                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
-              </a>
-              <a href="https://www.linkedin.com/in/ivan-kolesnikov-89606a31a/" target="_blank" rel="noopener noreferrer" class="hero__link">
-                LinkedIn
-                <img src={icons.arrow1} alt="" width="20" height="20" aria-hidden="true" />
-              </a>
-            </nav>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <section class="cases content-wrap" aria-label="Проекты">
-      <h2 class="cases__heading">Проекты</h2>
-      <div class="cases__list">
-        {cases.map(c => (
-          <CaseCard
-            title={c.title}
-            type={c.type}
-            href={c.href}
-            comingSoon={c.comingSoon}
-            cover={c.cover}
-          />
+          </article>
         ))}
       </div>
-    </section>
+      </div>
+    </div>
+  </section>
+  <section class="personal-plate" aria-labelledby="personal-heading">
+    <div class="personal-layout">
+      <div><span class="personal-label">НЕМНОГО ЛИЧНОГО</span><h2 id="personal-heading">А ещё я…</h2></div>
+      <div class="personal-copy">
+        <p>Работаю бариста в офисе Яндекса.</p>
+        <p>Люблю гиковские штуки: роботов, ИИ и умные устройства. Интересно следить за проектами вроде 42 dot и тем, как технологии становятся частью повседневной жизни.</p>
+      </div>
+    </div>
+  </section>
   </main>
-
   <ComingSoonModal />
 </BaseLayout>
 
+<script>
+  const status = document.querySelector<HTMLElement>('.copy-status');
+  document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => {
+    let feedbackTimer: ReturnType<typeof setTimeout>;
+    let copying = false;
+    button.addEventListener('click', async () => {
+      const value = button.dataset.copy;
+      if (!value || copying) return;
+      copying = true;
+      clearTimeout(feedbackTimer);
+      try {
+        await navigator.clipboard.writeText(value);
+        button.dataset.feedback = 'Скопировано';
+        if (status) status.textContent = `Скопировано: ${value}`;
+      } catch {
+        button.dataset.feedback = 'Не удалось';
+        if (status) status.textContent = `Не удалось скопировать. Контакт: ${value}`;
+      } finally {
+        copying = false;
+      }
+      feedbackTimer = setTimeout(() => { delete button.dataset.feedback; }, 2000);
+    });
+  });
+</script>
+
 <style>
-.hero {
-  padding-block: 60px;
-}
+  .portfolio-preview { background: #080808; isolation: isolate; }
+  .background-layer { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #080808; }
 
-/* AL0 = 800px; AL1 = 485px; AL2 = 295px; gap 20px */
-.hero__cols {
-  display: grid;
-  grid-template-columns: 485fr 295fr;
-  column-gap: 20px;
-  width: 100%;
-  align-items: stretch;
-}
-
-.hero__col--left {
-  max-width: 485px;
-  justify-content: flex-start;
-  gap: 44px;
-}
-
-.hero__col--right {
-  max-width: 295px;
-}
-
-.hero__col {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 32px;
-}
-
-.hero__row--top {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
-}
-
-.hero__bio {
-  flex: 1;
-  min-width: 0;
-  font: 400 24px/1.6 'Onest', sans-serif;
-  color: var(--color-black-1000);
-}
-
-.hero__num {
-  flex-shrink: 0;
-  font: var(--text-description-1);
-  color: var(--color-black-1050);
-  white-space: nowrap;
-}
-
-.hero__location {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font: 400 20px/1.5 'Onest', sans-serif;
-  color: var(--color-black-1050);
-}
-
-.hero__contacts-block {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.hero__contacts-head {
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--color-grey-2050);
-}
-
-.hero__contacts-label {
-  flex: 1;
-  min-width: 0;
-  font: var(--text-header-2);
-  color: var(--color-black-1000);
-  margin: 0;
-}
-
-.hero__links {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.hero__link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-block: 10px;
-  font: 400 18px/1.5 'Onest', sans-serif;
-  color: var(--color-black-1000);
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-
-.hero__link img {
-  flex-shrink: 0;
-  transition: filter 0.15s ease;
-}
-
-.hero__link:hover {
-  color: var(--color-accent-blue-4050);
-}
-
-.hero__link:hover img {
-  filter: invert(33%) sepia(93%) saturate(2577%) hue-rotate(214deg) brightness(101%) contrast(101%);
-}
-
-.cases {
-  padding-block: 160px;
-}
-
-.cases__heading {
-  font: var(--text-header-1);
-  color: var(--color-black-1000);
-  margin: 0 0 32px;
-}
-
-.cases__list {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-  width: 100%;
-}
-
-@media (max-width: 744px) {
-  .hero__cols {
-    grid-template-columns: 485fr 295fr;
-    column-gap: 20px;
+  .intro__depth { position: absolute; inset: 0; }
+  .intro { position: sticky; top: 0; z-index: 1; min-height: 100svh; }
+  .projects-plate { position: relative; z-index: 2; min-height: 100svh; margin-top: -40px; padding-block: 96px 140px; border-radius: 48px 48px 0 0; background: #fff; box-shadow: 0 -20px 70px rgb(0 0 0 / 0.18); }
+  .about { position: sticky; top: 32px; align-self: start; }
+  .projects-layout { width: min(1360px, calc(100% - 96px)); margin-inline: auto; display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 48px; color: #171717; }
+  .about h2, .projects-heading { font-size: 26px; line-height: 1.25; font-weight: 500; letter-spacing: -0.035em; }
+  .about p, .projects-header p { color: #333; font-size: 15px; line-height: 1.6; }
+  .about-role { margin-top: 4px; }
+  .about-copy { margin-block: 44px 28px; }
+  .about-copy p + p { margin-top: 18px; }
+  .about-details { font-size: 13px; }
+  .about-details > div { display: flex; justify-content: space-between; gap: 12px; padding-block: 14px; border-top: 1px solid #eee; }
+  .about-details > div:last-child { border-bottom: 1px solid #eee; }
+  .about-details dt { color: #777; }
+  .about-details a { text-decoration: none; }
+  .contact-link, .project-open { display: inline-flex; justify-content: center; align-items: center; padding: 9px 14px; border: 1px solid #e5e5e5; border-radius: 7px; background: #fff; font: inherit; font-size: 13px; text-decoration: none; color: #171717; cursor: pointer; }
+  .contacts { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid #e5e5e5; padding-top: 24px; }
+  .contact-link { position: relative; gap: 8px; }
+  .contact-link[data-feedback] > * { visibility: hidden; }
+  .contact-link[data-feedback]::after { content: attr(data-feedback); position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; }
+  .contact-link svg { width: 18px; height: 18px; flex-shrink: 0; }
+  .contact-link:disabled { opacity: .45; cursor: default; }
+  .contact-link:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
+  .about .copy-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .personal-plate { position: relative; z-index: 3; border-radius: 48px 48px 0 0; background: #f1f0ed; margin-top: -40px; padding: 96px 0 120px; min-height: 60svh; }
+  .personal-layout { width: min(1360px, calc(100% - 96px)); margin-inline: auto; display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 48px; }
+  .personal-label { font-size: 11px; letter-spacing: .12em; color: #777; }
+  .personal-layout h2 { margin-top: 16px; font-size: 32px; font-weight: 500; line-height: 1.2; letter-spacing: -.035em; }
+  .personal-layout p { max-width: 560px; color: #555; font-size: 20px; line-height: 1.6; }
+  .personal-copy p + p { margin-top: 24px; }
+  .contact-link:hover, .project-open:hover { background: #f5f5f5; }
+  .projects-header { margin-bottom: 28px; }
+  .projects-header p { margin-top: 4px; }
+  .project { --cover-underlay: #e5e7e9; }
+  .project:nth-child(3n + 2) { --cover-underlay: #dce7f5; }
+  .project:nth-child(3n + 3) { --cover-underlay: #f5dfd1; }
+  .project-cover { position: relative; isolation: isolate; display: block; width: 100%; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
+  .project-cover::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--cover-underlay); transition: transform 280ms ease; }
+  .project-cover img { width: 100%; height: auto; aspect-ratio: 1040 / 620; object-fit: cover; border-radius: 8px; transform-origin: 50% 65%; transition: transform 280ms ease, box-shadow 280ms ease; }
+  @media (hover: hover) and (pointer: fine) {
+    .project:hover .project-cover img { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
+    .project:hover .project-cover::before { transform: translate(-5px, 5px) rotate(-0.6deg); }
   }
-
-  .hero__col--left,
-  .hero__col--right {
-    max-width: none;
+  .project:focus-within .project-cover img { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
+  .project:focus-within .project-cover::before { transform: translate(-5px, 5px) rotate(-0.6deg); }
+  .project-cover:focus-visible { outline: 2px solid #171717; outline-offset: 6px; }
+  @media (prefers-reduced-motion: reduce) {
+    .project-cover img { transition: none; }
+    .project:hover .project-cover img, .project:focus-within .project-cover img { transform: none; box-shadow: none; }
+    .project-cover::before { transition: none; }
+    .project:hover .project-cover::before, .project:focus-within .project-cover::before { transform: none; }
   }
+  .project-caption { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding-block: 18px 24px; border-bottom: 1px solid #eee; }
+  .project-caption h3 { font-size: 16px; font-weight: 500; line-height: 1.5; }
+  .project-caption p { margin-top: 4px; color: #777; font-size: 14px; }
+  .project-open { flex-shrink: 0; }
+  @media (max-width: 900px) { .projects-layout { width: calc(100% - 48px); grid-template-columns: 1fr; gap: 48px; } .about { max-width: 540px; } .about-copy { margin-top: 24px; } }
+  @media (max-width: 480px) { .projects-layout { width: calc(100% - 40px); } .project-caption { gap: 12px; } .project-caption h3 { font-size: 15px; } }
+  @media (max-width: 900px) { .about { position: static; max-height: none; overflow: visible; } .personal-layout { width: calc(100% - 48px); grid-template-columns: 1fr; gap: 32px; } .personal-plate { border-radius: 28px 28px 0 0; padding-block: 56px 80px; } }
+  .projects-list { display: flex; flex-direction: column; gap: 32px; }
+  .preview { position: relative; width: min(1360px, calc(100% - 96px)); margin-inline: auto; min-height: 100svh; color: #f3f1e8; padding-block: 36px 64px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; }
+  .intro-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; pointer-events: auto; }
+  .intro-author { font-size: 20px; font-weight: 500; text-decoration: none; letter-spacing: -.03em; }
+  .intro-resume { display: inline-flex; gap: 20px; align-items: center; padding: 11px 20px; border: 1px solid #777; border-radius: 100px; text-decoration: none; font-size: 14px; }
+  .intro-resume:hover { background: #f3f1e8; color: #080808; }
+  .intro-header a:focus-visible { outline: 2px solid #f3f1e8; outline-offset: 5px; }
+  .back { align-self: flex-start; color: #aaa99f; font-size: 14px; text-decoration: none; pointer-events: auto; }
+  .back:hover { color: #ffd718; }
+  .back:focus-visible { outline: 2px solid #ffd718; outline-offset: 8px; }
+  .caption { margin-block: 100px; }
+  .label, .signature { font: 11px/1.5 monospace; letter-spacing: 0.16em; color: #929185; }
+  h1 { margin: 24px 0; font-size: clamp(44px, 7vw, 100px); font-weight: 400; line-height: 1.04; letter-spacing: -0.055em; }
+  p { color: #aaa99f; font-size: 15px; }
+  .signature { align-self: flex-end; }
+  @media (max-width: 900px) { .preview { width: calc(100% - 48px); } }
+  @media (max-width: 600px) { .preview { padding-block: 28px 48px; } .signature { align-self: flex-start; } .intro-author { font-size: 17px; } .intro-resume { padding: 9px 14px; gap: 10px; } }
+  @media (max-width: 480px) { .preview { width: calc(100% - 40px); } h1 { font-size: clamp(30px, 8.6vw, 42px); } }
+  @media (max-width: 600px) { .projects-plate { border-radius: 28px 28px 0 0; margin-top: -24px; padding-block: 56px 80px; } }
 
-  .hero__col {
-    gap: 24px;
-  }
-
-  .hero__col--left {
-    gap: 36px;
-  }
-}
-
-@media (max-width: 440px) {
-  .hero {
-    padding-block: 30px;
-  }
-
-  .hero__cols {
-    grid-template-columns: 1fr;
-    row-gap: 32px;
-  }
-
-  .hero__col--left,
-  .hero__col--right {
-    max-width: none;
-  }
-
-  .hero__bio {
-    font: 400 22px/1.6 'Onest', sans-serif;
-  }
-}
 </style>
+
 
