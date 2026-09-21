@@ -4,7 +4,7 @@ import { withBase } from './paths';
 
 export const cases = [
   {
-    title: 'Сделал редизайн лендинга Онлайн-колледжа',
+    title: 'Сделал редизайн рекламного лендинга Онлайн-колледжа',
     type: 'ИнтернетУрок',
     href: '/made-redesign-landing-of-online-college',
     cover: collegeCovers,

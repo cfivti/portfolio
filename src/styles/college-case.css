@@ -246,3 +246,17 @@
     aspect-ratio: auto;
   }
 }
+
+.college-subheading { margin: 0; font: var(--text-header-2); color: var(--color-black-1000); }
+.college-disclosure { border-block: 1px solid #e5e5e5; }
+.college-disclosure summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 20px; cursor: pointer; list-style: none; font: var(--text-body-1); }
+.college-disclosure summary::-webkit-details-marker { display: none; }
+.college-disclosure summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.college-disclosure summary > span { font-size: 24px; }
+.college-disclosure[open] summary > span { transform: rotate(45deg); }
+.college-disclosure .college-audience-list { padding-block: 8px 24px; }
+.college-hypotheses { list-style: none; padding: 0; margin: 0; display: grid; gap: 20px; font: var(--text-body-1); }
+.college-hypotheses li { display: flex; gap: 20px; }
+.college-hypotheses li > span { flex-shrink: 0; color: #777; }
+.college-process-placeholder { display: grid; place-items: center; min-height: 240px; aspect-ratio: 2 / 1; border: 1px dashed #ccc; border-radius: 8px; background: #f5f5f5; color: #777; font: var(--text-description-1); }
+
