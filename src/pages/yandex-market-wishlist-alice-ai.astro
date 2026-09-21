@@ -1,17 +1,19 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
+import PortfolioHeader from '../components/PortfolioHeader.astro';
+import { withBase } from '../lib/paths';
 import { icons } from '../lib/icons';
 import { yandexUserFlow, yandexPrototype, yandexGallery } from '../lib/yandex-images';
 import '../styles/case-page.css';
 ---
 
 <BaseLayout title="Вишлист Alice AI | Яндекс Маркет — vanya.cfivti">
-  <Header variant="case" />
+  <div class="case-header"><PortfolioHeader light /></div>
 
   <main>
-    <article class="case-content content-wrap">
+    <article class="case-content">
 
+      <a class="case-back" href={withBase('/')}>← Все проекты</a>
       <div class="case-title-row">
         <h1 class="case-title">Вишлист Alice AI | Яндекс Маркет</h1>
         <a
@@ -234,7 +236,7 @@ import '../styles/case-page.css';
             <picture>
               <source media="(max-width: 440px)" srcset={yandexUserFlow.mobile} />
               <source media="(max-width: 744px)" srcset={yandexUserFlow.tablet} />
-              <img src={yandexUserFlow.desktop} alt="User Flow" width="1200" height="700" loading="eager" decoding="async" />
+              <img src={yandexUserFlow.desktop} alt="User Flow" width="1200" height="700" loading="lazy" decoding="async" />
             </picture>
           </div>
 
@@ -242,7 +244,7 @@ import '../styles/case-page.css';
             <picture>
               <source media="(max-width: 440px)" srcset={yandexPrototype.mobile} />
               <source media="(max-width: 744px)" srcset={yandexPrototype.tablet} />
-              <img src={yandexPrototype.desktop} alt="Прототип экранов" width="1200" height="528" loading="eager" decoding="async" />
+              <img src={yandexPrototype.desktop} alt="Прототип экранов" width="1200" height="528" loading="lazy" decoding="async" />
             </picture>
           </div>
         </section>
@@ -261,7 +263,7 @@ import '../styles/case-page.css';
                     alt={item.alt}
                     width="595"
                     height="442"
-                    loading="eager"
+                    loading="lazy"
                     decoding="async"
                   />
                 </picture>
@@ -501,5 +503,45 @@ import '../styles/case-page.css';
   .case-body {
     gap: 48px;
   }
+}
+/* Same editorial grid as the Online College case. */
+.case-header, .case-content { width: min(1360px, calc(100% - 96px)); margin-inline: auto; }
+.case-header { padding-block: 36px; }
+.case-content { padding-block: 60px 80px; }
+.case-back { display: inline-block; margin-bottom: 32px; font-size: 14px; color: #777; text-decoration: none; }
+.case-back:hover { color: #171717; }
+.case-title-row { padding: 0 0 60px; }
+.case-title { max-width: 1150px; font: 400 clamp(36px, 4.5vw, 68px)/1.08 'Onest', sans-serif; letter-spacing: -.045em; }
+.btn--figma { border: 1px solid #e5e5e5; border-radius: 7px; color: #171717; font-size: 14px; }
+.case-body { gap: 0; }
+.case-section { display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 24px 48px; padding-block: 60px; border-top: 1px solid #e5e5e5; }
+.case-section > * { grid-column: 2; min-width: 0; margin: 0; }
+.case-section > .case-h1 { grid-column: 1; grid-row: 1 / span 2; }
+.case-h1 { font: 500 26px/1.25 'Onest', sans-serif; letter-spacing: -.035em; }
+.case-h2 { font: 500 20px/1.4 'Onest', sans-serif; letter-spacing: -.02em; }
+.case-section p, .case-section .case-pair__text { font: 400 17px/1.65 'Onest', sans-serif; color: #333; }
+.case-section .syn, .case-section .key { color: inherit; }
+.yandex-case .case-media, .yandex-case .case-gallery-stack { grid-column: 1 / -1; width: 100%; max-width: 100%; margin-inline: 0; }
+.case-gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.case-gallery-grid__item { width: 100%; height: auto; aspect-ratio: 595 / 442; }
+.tbl-scroll-wrap { grid-column: 1 / -1; display: block; overflow-x: auto; }
+.tbl-wrap--jtdb, .tbl-wrap--stream { max-width: none; }
+.tbl-wrap--jtdb { min-width: 880px; }
+.tbl-wrap--stream { min-width: 600px; }
+.case-tbl { font: 400 15px/1.6 'Onest', sans-serif; color: #333; }
+@media (max-width: 900px) {
+  .case-header, .case-content { width: calc(100% - 48px); }
+  .case-section { grid-template-columns: 1fr; gap: 20px; }
+  .case-section > *, .case-section > .case-h1 { grid-column: 1; grid-row: auto; }
+}
+@media (max-width: 480px) {
+  .case-header, .case-content { width: calc(100% - 40px); }
+  .case-header { padding-block: 28px; }
+  .case-content { padding-top: 32px; }
+  .case-title-row { flex-direction: column; padding-bottom: 40px; }
+  .case-section { padding-block: 40px; }
+  .case-gallery-grid { grid-template-columns: 1fr; }
+  .case-media--flow, .case-media--prototype { aspect-ratio: auto; height: auto; min-height: 0; }
+  .case-media img { height: auto; }
 }
 </style>
