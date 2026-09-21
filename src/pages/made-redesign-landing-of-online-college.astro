@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Header from '../components/Header.astro';
+import PortfolioHeader from '../components/PortfolioHeader.astro';
+import { withBase } from '../lib/paths';
 import {
   collegeKonkurenti,
   collegeScrollVideos,
@@ -13,13 +14,14 @@ const galleryItems = [1, 2, 3, 4] as const;
 ---
 
 <BaseLayout title="Редизайн рекламного лендинга Онлайн-колледжа — vanya.cfivti">
-  <Header variant="case" />
+  <div class="college-header"><PortfolioHeader light /></div>
 
   <main>
     <article class="college-case">
 
       <div class="college-block college-block--title">
         <div class="college-al0">
+          <a class="college-back" href={withBase('/')}>← Все проекты</a>
           <h1 class="case-title">Сделал редизайн рекламного лендинга Онлайн-колледжа</h1>
         </div>
       </div>

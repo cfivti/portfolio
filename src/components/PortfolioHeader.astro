@@ -1,0 +1,19 @@
+---
+import { withBase } from '../lib/paths';
+const { light = false } = Astro.props;
+---
+<header class:list={['portfolio-header', { 'portfolio-header--light': light }]}>
+  <a href={withBase('/')} class="portfolio-header__author">Vanya Kolesnikov</a>
+  <a class="portfolio-header__resume" href="https://disk.yandex.ru/i/PHs4JDpjQEThkA" target="_blank" rel="noopener noreferrer">Резюме <span aria-hidden="true">↗</span></a>
+</header>
+<style>
+  .portfolio-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; color: #f3f1e8; pointer-events: auto; }
+  .portfolio-header--light { color: #171717; }
+  .portfolio-header__author { font-size: 20px; font-weight: 500; text-decoration: none; letter-spacing: -.03em; }
+  .portfolio-header__resume { display: inline-flex; gap: 20px; align-items: center; padding: 11px 20px; border: 1px solid #777; border-radius: 100px; text-decoration: none; font-size: 14px; }
+  .portfolio-header__resume:hover { background: #f3f1e8; color: #080808; }
+  .portfolio-header--light .portfolio-header__resume { border-color: #e5e5e5; }
+  .portfolio-header--light .portfolio-header__resume:hover { background: #f5f5f5; }
+  a:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  @media (max-width: 600px) { .portfolio-header__author { font-size: 17px; } .portfolio-header__resume { padding: 9px 14px; gap: 10px; } }
+</style>
