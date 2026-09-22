@@ -16,7 +16,7 @@
 .college-story .college-comparison { margin-top: 64px; }
 .comparison-reveal { position: relative; border-radius: 6px; overflow: hidden; touch-action: pan-y; cursor: ew-resize; user-select: none; }
 .comparison-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--split)) 0 0); }
-.comparison-divider { position: absolute; top: 0; bottom: 0; left: var(--split); width: 3px; background: #fff; transform: translateX(-50%); cursor: ew-resize; box-shadow: 0 0 3px #0003; }
+.comparison-divider { position: absolute; top: 0; bottom: 0; left: var(--split); width: 3px; background: #fff; transform: translateX(-50%); cursor: ew-resize; }
 .college-back { display: inline-block; margin-top: 48px; font-size: 17px; color: #666; text-decoration: none; }
 .college-back:hover { color: #111; }
 .college-story :focus-visible { outline: 2px solid #ff6d50; outline-offset: 4px; }
