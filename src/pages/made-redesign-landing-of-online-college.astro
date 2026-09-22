@@ -43,34 +43,50 @@ const captions = ['Первый экран Онлайн-колледжа', 'Во
       <p>Провёл 5 презентаций проекта. Собрал более 60 макетов. Собрал положительные фидбеки от команды. Поработал в классной команде.</p>
     </section>
     <section class="college-comparison" aria-label="Сравнение лендинга до и после редизайна">
-      <div class="comparison-controls" role="group" aria-label="Версия лендинга">
-        <button type="button" data-version="0" aria-pressed="true">До</button>
-        <button type="button" data-version="1" aria-pressed="false">После</button>
-        <span>Листайте вбок для сравнения</span>
+      <div class="comparison-controls">
+        <span>До</span>
+        <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Положение разделителя до и после" />
+        <span>После</span>
       </div>
-      <div class="comparison-track" tabindex="0" aria-label="До и после. Используйте стрелки влево и вправо или свайп.">
-        <figure aria-label="До редизайна"><img src={withBase('/made-redesign-landing-online-college/comparison-before.webp')} alt="Полная страница Онлайн-колледжа до редизайна" width="2000" height="11297" loading="lazy" decoding="async" /></figure>
-        <figure aria-label="После редизайна"><img src={withBase('/made-redesign-landing-online-college/comparison-after.webp')} alt="Полная страница Онлайн-колледжа после редизайна" width="2000" height="11297" loading="lazy" decoding="async" /></figure>
+      <div class="comparison-reveal" style="--split: 50%">
+        <img src={withBase('/made-redesign-landing-online-college/comparison-after.webp')} alt="Полная страница после редизайна" width="2000" height="11297" loading="lazy" decoding="async" draggable="false" />
+        <div class="comparison-before">
+          <img src={withBase('/made-redesign-landing-online-college/comparison-before.webp')} alt="Полная страница до редизайна" width="2000" height="11297" loading="lazy" decoding="async" draggable="false" />
+        </div>
+        <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
       </div>
     </section>
     <a class="college-back" href={withBase('/')}>← Все проекты</a>
   </main>
 </BaseLayout>
 <script>
-  const track = document.querySelector<HTMLElement>('.comparison-track');
-  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-version]');
-  if (track) {
-    const select = (index: number) => track.scrollTo({ left: index * track.clientWidth, behavior: 'instant' });
-    buttons.forEach(button => button.addEventListener('click', () => select(Number(button.dataset.version))));
-    track.addEventListener('scroll', () => {
-      const index = Math.round(track.scrollLeft / track.clientWidth);
-      buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
-    }, { passive: true });
-    track.addEventListener('keydown', event => {
-      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-        event.preventDefault();
-        select(event.key === 'ArrowLeft' ? 0 : 1);
-      }
+  const reveal = document.querySelector<HTMLElement>('.comparison-reveal');
+  const range = document.querySelector<HTMLInputElement>('.comparison-range');
+  if (reveal && range) {
+    const update = (value: number) => {
+      const position = Math.max(0, Math.min(100, value));
+      range.value = String(position);
+      range.setAttribute('aria-valuetext', `До ${Math.round(position)}%, после ${100 - Math.round(position)}%`);
+      reveal.style.setProperty('--split', `${position}%`);
+    };
+    range.addEventListener('input', () => update(Number(range.value)));
+    const move = (event: PointerEvent) => {
+      const bounds = reveal.getBoundingClientRect();
+      update((event.clientX - bounds.left) / bounds.width * 100);
+    };
+    reveal.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      reveal.setPointerCapture(event.pointerId);
+      move(event);
     });
+    reveal.addEventListener('pointermove', event => {
+      if (reveal.hasPointerCapture(event.pointerId)) move(event);
+    });
+    const release = (event: PointerEvent) => {
+      if (reveal.hasPointerCapture(event.pointerId)) reveal.releasePointerCapture(event.pointerId);
+    };
+    reveal.addEventListener('pointerup', release);
+    reveal.addEventListener('pointercancel', release);
+    update(50);
   }
 </script>
