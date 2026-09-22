@@ -17,7 +17,7 @@ const captions = ['Первый экран Онлайн-колледжа', 'Во
       <p>Сервис имел низкую конверсию и не выделялся на фоне конкурентов.</p>
     </section>
     <section>
-      <h2>Что делал:</h2>
+      <h2>Что делал</h2>
       <p>Перед началом работы изучил аналитику. Составил понимание о том, какие элементы влияют на пользовательский опыт, а какие не востребованы.</p>
       <figure class="college-competitors"><img src={collegeKonkurenti.desktop} alt="Анализ и сравнение лендингов конкурентов" loading="lazy" decoding="async" /></figure>
       <p>Онлайн-колледж должен выделяться на фоне конкурентов, вызывать доверие у новых клиентов и оставаться узнаваемым для тех, кто пришёл из Онлайн-школы. У меня была гипотеза: чтобы повысить конверсию, нужно сделать общение сайта с пользователем более структурированным и лёгким. От этого я поставил себе 3 задачи.</p>
@@ -43,17 +43,12 @@ const captions = ['Первый экран Онлайн-колледжа', 'Во
       <p>Провёл 5 презентаций проекта. Собрал более 60 макетов. Собрал положительные фидбеки от команды. Поработал в классной команде.</p>
     </section>
     <section class="college-comparison" aria-label="Сравнение лендинга до и после редизайна">
-      <div class="comparison-controls">
-        <span>До</span>
-        <input class="comparison-range" type="range" min="0" max="100" value="50" aria-label="Положение разделителя до и после" />
-        <span>После</span>
-      </div>
       <div class="comparison-reveal" style="--split: 50%">
         <img src={withBase('/made-redesign-landing-online-college/comparison-after.webp')} alt="Полная страница после редизайна" width="2000" height="11297" loading="lazy" decoding="async" draggable="false" />
         <div class="comparison-before">
           <img src={withBase('/made-redesign-landing-online-college/comparison-before.webp')} alt="Полная страница до редизайна" width="2000" height="11297" loading="lazy" decoding="async" draggable="false" />
         </div>
-        <div class="comparison-divider" aria-hidden="true"><span>↔</span></div>
+        <div class="comparison-divider" role="slider" tabindex="0" aria-label="Сравнение до и после" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span>↔</span></div>
       </div>
     </section>
     <a class="college-back" href={withBase('/')}>← Все проекты</a>
@@ -61,15 +56,19 @@ const captions = ['Первый экран Онлайн-колледжа', 'Во
 </BaseLayout>
 <script>
   const reveal = document.querySelector<HTMLElement>('.comparison-reveal');
-  const range = document.querySelector<HTMLInputElement>('.comparison-range');
-  if (reveal && range) {
+  const handle = document.querySelector<HTMLElement>('.comparison-divider');
+  if (reveal && handle) {
     const update = (value: number) => {
       const position = Math.max(0, Math.min(100, value));
-      range.value = String(position);
-      range.setAttribute('aria-valuetext', `До ${Math.round(position)}%, после ${100 - Math.round(position)}%`);
+      handle.setAttribute('aria-valuenow', String(position));
+      handle.setAttribute('aria-valuetext', `До ${Math.round(position)}%, после ${100 - Math.round(position)}%`);
       reveal.style.setProperty('--split', `${position}%`);
     };
-    range.addEventListener('input', () => update(Number(range.value)));
+    handle.addEventListener('keydown', event => {
+      const current = Number(handle.getAttribute('aria-valuenow'));
+      const values: Record<string, number> = { ArrowLeft: current - 5, ArrowRight: current + 5, Home: 0, End: 100 };
+      if (event.key in values) { event.preventDefault(); update(values[event.key]); }
+    });
     const move = (event: PointerEvent) => {
       const bounds = reveal.getBoundingClientRect();
       update((event.clientX - bounds.left) / bounds.width * 100);

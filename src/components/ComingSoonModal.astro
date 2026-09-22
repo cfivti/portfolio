@@ -1,5 +1,6 @@
 ---
 /** Модальное окно «кейс в разработке» */
+import { withBase } from '../lib/paths';
 ---
 
 <div
@@ -8,21 +9,25 @@
   role="dialog"
   aria-modal="true"
   aria-labelledby="coming-soon-title"
+  aria-describedby="coming-soon-description"
   aria-hidden="true"
   hidden
 >
   <div class="soon-modal__backdrop" data-soon-close></div>
 
   <div class="soon-modal__panel">
-    <div class="soon-modal__copy">
-      <h2 class="soon-modal__title" id="coming-soon-title">Будет скоро</h2>
-      <p class="soon-modal__desc">
-        Кейс в процессе, вы можете написать за подробностями! :)
-      </p>
+    <div class="soon-modal__image" aria-hidden="true">
+      <img src={withBase('/img/work-in-progress-reference.webp')} alt="" />
     </div>
-    <button type="button" class="btn btn--page soon-modal__btn" data-soon-close>
-      Хорошо
+    <div class="soon-modal__copy">
+      <h2 class="soon-modal__title" id="coming-soon-title">На доработке</h2>
+      <p class="soon-modal__desc" id="coming-soon-description">
+        Кейс сейчас в разработке, можно написать за подробностями.
+      </p>
+    <button type="button" class="soon-modal__btn" data-soon-close>
+      Ока-а-й
     </button>
+    </div>
   </div>
 </div>
 
@@ -59,23 +64,20 @@
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
 }
 
 .soon-modal__panel {
   position: relative;
   z-index: 1;
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 20px;
-  width: 680px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 880px;
   max-width: calc(100vw - 40px);
-  min-height: 280px;
-  padding: 32px;
-  border-radius: 24px;
+  min-height: 440px;
+  max-height: calc(100svh - 40px);
+  overflow: auto;
+  border-radius: 10px;
   background: var(--color-white-3000);
   box-shadow: var(--effect-header-shadow);
   opacity: 0;
@@ -93,11 +95,16 @@
   flex-direction: column;
   gap: 20px;
   width: 100%;
+  padding: 36px;
 }
+
+.soon-modal__image { position: relative; min-height: 440px; overflow: hidden; background: #325354; }
+/* Display only the artwork area of the supplied reference. */
+.soon-modal__image img { position: absolute; width: 225%; max-width: none; height: 118%; left: -10.7%; top: -7%; }
 
 .soon-modal__title {
   margin: 0;
-  font: 500 24px/1.25 'Onest', sans-serif;
+  font: 500 30px/1.25 'Onest', sans-serif;
   color: var(--color-black-1000);
 }
 
@@ -105,35 +112,43 @@
   margin: 0;
   max-width: 320px;
   width: 100%;
-  font: 400 20px/1.5 'Onest', sans-serif;
+  font: 400 16px/1.6 'Onest', sans-serif;
   color: var(--color-black-1000);
 }
 
 .soon-modal__btn {
   align-self: flex-start;
-  width: 160px;
-  height: 46px;
+  margin-top: auto;
+  padding: 10px 18px;
+  border: 1px solid #e5e5e5;
+  border-radius: 7px;
+  background: white;
+  color: #171717;
+  font: 400 14px/1.5 'Onest', sans-serif;
+  cursor: pointer;
 }
+.soon-modal__btn:hover { background: #f5f5f5; }
+.soon-modal__btn:focus-visible { outline: 2px solid #171717; outline-offset: 3px; }
 
 @media (max-width: 744px) {
   .soon-modal__panel {
-    width: 640px;
-    min-height: 320px;
+    width: 600px;
+    min-height: 360px;
   }
+  .soon-modal__copy { padding: 24px; }
+  .soon-modal__image { min-height: 360px; }
 }
 
 @media (max-width: 440px) {
-  .soon-modal {
-    padding: 24px;
-  }
-
   .soon-modal__panel {
     width: 100%;
     max-width: 370px;
     min-height: 320px;
-    padding: 26px;
-    border-radius: 20px;
+    grid-template-columns: 1fr;
+    border-radius: 10px;
   }
+  .soon-modal__image { min-height: 0; height: 180px; }
+  .soon-modal__copy { min-height: 240px; }
 
   .soon-modal__btn {
     align-self: stretch;
@@ -144,17 +159,22 @@
 
 <script>
   const modal = document.getElementById('coming-soon-modal');
+  let previousFocus: HTMLElement | null = null;
 
   const open = () => {
     if (!modal) return;
+    previousFocus = document.activeElement as HTMLElement;
     modal.removeAttribute('hidden');
     requestAnimationFrame(() => modal.classList.add('is-open'));
     document.body.style.overflow = 'hidden';
+    modal.querySelector<HTMLButtonElement>('.soon-modal__btn')?.focus();
   };
 
   const close = () => {
+    if (!modal) return;
     modal.classList.remove('is-open');
     document.body.style.overflow = '';
+    previousFocus?.focus();
     window.setTimeout(() => {
       if (!modal.classList.contains('is-open')) {
         modal.setAttribute('hidden', '');
@@ -169,6 +189,10 @@
 
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+      if (e.key === 'Tab' && modal.classList.contains('is-open')) {
+        e.preventDefault();
+        modal.querySelector<HTMLButtonElement>('.soon-modal__btn')?.focus();
+      }
     });
   }
 
