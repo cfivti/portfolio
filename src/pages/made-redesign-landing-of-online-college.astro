@@ -2,218 +2,75 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PortfolioHeader from '../components/PortfolioHeader.astro';
 import { withBase } from '../lib/paths';
-import {
-  collegeKonkurenti,
-  collegeScrollVideos,
-  collegeGalleryAl2,
-} from '../lib/college-images';
-import '../styles/case-page.css';
+import { collegeKonkurenti, collegeGalleryAl2 } from '../lib/college-images';
 import '../styles/college-case.css';
-
 const galleryItems = [1, 2, 3, 4] as const;
+const captions = ['Первый экран Онлайн-колледжа', 'Возможности обучения', 'Направления обучения', 'Преподаватели Онлайн-колледжа'];
 ---
-
-<BaseLayout title="Редизайн рекламного лендинга Онлайн-колледжа — vanya.cfivti">
+<BaseLayout title="Редизайн рекламного лендинга Онлайн-колледжа — Vanya Kolesnikov">
   <div class="college-header"><PortfolioHeader light /></div>
-
-  <main>
-    <article class="college-case">
-
-      <div class="college-block college-block--title">
-        <div class="college-al0">
-          <a class="college-back" href={withBase('/')}>← Все проекты</a>
-          <h1 class="case-title">Сделал редизайн рекламного лендинга Онлайн-колледжа</h1>
-        </div>
+  <main class="college-story">
+    <h1>Сделал редизайн рекламного лендинга Онлайн-колледжа</h1>
+    <p>Проходил учебную практику от колледжа,<br class="desktop-break" /> работал в роли UX/UI дизайнера.</p>
+    <section>
+      <h2>Какая была проблема?</h2>
+      <p>Сервис имел низкую конверсию и не выделялся на фоне конкурентов.</p>
+    </section>
+    <section>
+      <h2>Что делал:</h2>
+      <p>Перед началом работы изучил аналитику. Составил понимание о том, какие элементы влияют на пользовательский опыт, а какие не востребованы.</p>
+      <figure class="college-competitors"><img src={collegeKonkurenti.desktop} alt="Анализ и сравнение лендингов конкурентов" loading="lazy" decoding="async" /></figure>
+      <p>Онлайн-колледж должен выделяться на фоне конкурентов, вызывать доверие у новых клиентов и оставаться узнаваемым для тех, кто пришёл из Онлайн-школы. У меня была гипотеза: чтобы повысить конверсию, нужно сделать общение сайта с пользователем более структурированным и лёгким. От этого я поставил себе 3 задачи.</p>
+      <ul class="college-tasks">
+        <li>Сделать<br /> узнаваемым</li>
+        <li>Провести клиента<br /> по сайту, отвечая на вопросы</li>
+        <li>Разгрузить сайт</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Сделал</h2>
+      <p>Упростил восприятие информации и выстроил путь, по которому пользователь знакомится с ней постепенно. Сделал визуал современнее.</p>
+      <div class="college-results">
+        {galleryItems.map((i) => {
+          const img = collegeGalleryAl2(i);
+          return <picture><source media="(max-width: 440px)" srcset={img.mobile} /><img src={img.desktop} alt={captions[i - 1]} loading="lazy" decoding="async" /></picture>;
+        })}
       </div>
-
-      <div class="college-block college-block--context">
-        <div class="college-al0">
-          <section class="college-section">
-            <h2 class="case-h1">Контекст</h2>
-            <p>
-              Проходил учебную практику от колледжа, работал в роли UX/UI дизайнера.
-            </p>
-          </section>
-
-          <section class="college-section">
-            <h2 class="case-h1">Задача и проблема</h2>
-            <p>
-              Сервис имел низкую конверсию и не выделялся на фоне конкурентов.
-            </p>
-          </section>
-        </div>
+      <p>Изменил вёрстку контента, объединил со стилем основного сайта с учётом аудитории.</p>
+    </section>
+    <section class="college-metrics">
+      <h2>Мини-метрики</h2>
+      <p>Провёл 5 презентаций проекта. Собрал более 60 макетов. Собрал положительные фидбеки от команды. Поработал в классной команде.</p>
+    </section>
+    <section class="college-comparison" aria-label="Сравнение лендинга до и после редизайна">
+      <div class="comparison-controls" role="group" aria-label="Версия лендинга">
+        <button type="button" data-version="0" aria-pressed="true">До</button>
+        <button type="button" data-version="1" aria-pressed="false">После</button>
+        <span>Листайте вбок для сравнения</span>
       </div>
-
-      <div class="college-block college-block--audience">
-        <div class="college-al0 college-al0--gap-20">
-          <h2 class="case-h1">Решение</h2>
-          <h3 class="college-subheading">Дизайн-аудит</h3>
-          <p>Перед началом дизайна я исследовал аудиторию и провёл дизайн-аудит существующего сайта.</p>
-
-          <details class="college-disclosure">
-          <summary>Аудитория сервиса <span aria-hidden="true">+</span></summary>
-
-          <div class="college-audience-list">
-            <div class="case-pair case-pair--inline">
-              <span class="case-pair__num">1)</span>
-              <p class="case-pair__text">
-                Подростки, кто хочет получить образование в сфере IT. Сейчас Онлайн-колледж
-                предоставляет 3 направления, востребованных в IT.
-              </p>
-            </div>
-
-            <div class="case-pair case-pair--inline">
-              <span class="case-pair__num">2)</span>
-              <p class="case-pair__text">
-                Выпускники онлайн-школы от ИнтернетУрока — с большей вероятностью выберут
-                Онлайн-колледж, так как знакомы с сервисом. Важно соблюсти фирменный стиль
-                ИнтернетУрока, чтобы не отпугнуть пользователя.
-              </p>
-            </div>
-
-            <div class="case-pair case-pair--inline">
-              <span class="case-pair__num">3)</span>
-              <p class="case-pair__text">
-                Родители — финансируют обучение и тщательнее подходят к выбору учебного
-                места для ребёнка.
-              </p>
-            </div>
-
-            <div class="case-pair case-pair--inline">
-              <span class="case-pair__num">4)</span>
-              <p class="case-pair__text">
-                Студенты из регионов — хотят получить московское образование без возможности
-                уехать из своего города.
-              </p>
-            </div>
-          </div>
-          </details>
-        </div>
+      <div class="comparison-track" tabindex="0" aria-label="До и после. Используйте стрелки влево и вправо или свайп.">
+        <figure aria-label="До редизайна"><img src={withBase('/made-redesign-landing-online-college/comparison-before.webp')} alt="Полная страница Онлайн-колледжа до редизайна" width="2000" height="11297" loading="lazy" decoding="async" /></figure>
+        <figure aria-label="После редизайна"><img src={withBase('/made-redesign-landing-online-college/comparison-after.webp')} alt="Полная страница Онлайн-колледжа после редизайна" width="2000" height="11297" loading="lazy" decoding="async" /></figure>
       </div>
-
-      <div class="college-block college-block--competitors">
-        <picture class="college-media-wide college-media-wide--konkurenti">
-          <source media="(max-width: 440px)" srcset={collegeKonkurenti.mobile} />
-          <source media="(max-width: 744px)" srcset={collegeKonkurenti.tablet} />
-          <img
-            src={collegeKonkurenti.desktop}
-            alt="Сравнение лендингов конкурентов"
-            width="1200"
-            height="700"
-            loading="lazy"
-            decoding="async"
-          />
-        </picture>
-
-      </div>
-
-      <div class="college-block college-block--hypotheses">
-        <div class="college-al0 college-al0--gap-20">
-          <h3 class="college-subheading">Гипотезы</h3>
-          <p>
-            Онлайн-колледж должен выделяться на фоне конкурентов, вызывать доверие у новых
-            клиентов и оставаться узнаваемым для тех, кто пришёл из Онлайн-школы.
-            Поэтому я сделал акцент на доверии и перспективе уверенного трудоустройства.
-          </p>
-          <p>Вывел несколько идей, определяющих направление визуального развития:</p>
-          <ol class="college-hypotheses">
-            <li><span aria-hidden="true">( 1 )</span>Соединить визуал с материнским сайтом.</li>
-            <li><span aria-hidden="true">( 2 )</span>Сделать упор на уверенное трудоустройство.</li>
-            <li><span aria-hidden="true">( 3 )</span>Усилить доверие к сервису.</li>
-          </ol>
-          <p>В поиске нужного образа разработал более 60 макетов.</p>
-          <div class="college-process-placeholder" role="img" aria-label="Место для изображения с вариантами макетов">
-            Варианты макетов
-          </div>
-          <p>На презентациях решений постепенно приближался к конечному результату.</p>
-        </div>
-      </div>
-
-      <div class="college-block college-block--result">
-        <div class="college-al0 college-al0--gap-20">
-          <h2 class="case-h1">Результат</h2>
-          <p>
-            В итоге сайт получил обновлённый дизайн на основе материнского сервиса,
-            был скорректирован контент и стиль общения с потенциальным студентом —
-            смещён фокус на перспективу карьерного роста.
-          </p>
-        </div>
-
-        <div class="college-gallery-wrap">
-          <div class="college-gallery-al0" aria-label="Галерея макетов">
-            <div class="college-gallery-al1">
-              <video
-                class="college-scroll-video"
-                muted
-                loop
-                playsinline
-                preload="none"
-                aria-hidden="true"
-                tabindex="-1"
-                data-src-desktop={collegeScrollVideos.desktop}
-                data-src-tablet={collegeScrollVideos.tablet}
-                data-src-mobile={collegeScrollVideos.mobile}
-              />
-            </div>
-
-            <div class="college-gallery-al2">
-              {galleryItems.map((i) => {
-                const img = collegeGalleryAl2(i);
-                return (
-                  <picture class="college-gallery-al2__item">
-                    <source media="(max-width: 440px)" srcset={img.mobile} />
-                    <source media="(max-width: 744px)" srcset={img.tablet} />
-                    <img
-                      src={img.desktop}
-                      alt={`Блок интерфейса ${i}`}
-                      width="595"
-                      height="442"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </article>
+    </section>
+    <a class="college-back" href={withBase('/')}>← Все проекты</a>
   </main>
 </BaseLayout>
-
 <script>
-  const collegeVideo = document.querySelector('.college-scroll-video');
-  if (collegeVideo instanceof HTMLVideoElement) {
-    const pickSrc = () => {
-      const w = window.innerWidth;
-      if (w <= 440) return collegeVideo.dataset.srcMobile ?? '';
-      if (w <= 744) return collegeVideo.dataset.srcTablet ?? '';
-      return collegeVideo.dataset.srcDesktop ?? '';
-    };
-
-    const loadAndPlay = () => {
-      const src = pickSrc();
-      if (!src || collegeVideo.dataset.activeSrc === src) return;
-      collegeVideo.dataset.activeSrc = src;
-      collegeVideo.src = src;
-      collegeVideo.load();
-      collegeVideo.play().catch(() => {});
-    };
-
-    const scheduleVideo = () => {
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(() => loadAndPlay(), { timeout: 3000 });
-      } else {
-        setTimeout(loadAndPlay, 1500);
+  const track = document.querySelector<HTMLElement>('.comparison-track');
+  const buttons = document.querySelectorAll<HTMLButtonElement>('[data-version]');
+  if (track) {
+    const select = (index: number) => track.scrollTo({ left: index * track.clientWidth, behavior: 'instant' });
+    buttons.forEach(button => button.addEventListener('click', () => select(Number(button.dataset.version))));
+    track.addEventListener('scroll', () => {
+      const index = Math.round(track.scrollLeft / track.clientWidth);
+      buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    }, { passive: true });
+    track.addEventListener('keydown', event => {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+        select(event.key === 'ArrowLeft' ? 0 : 1);
       }
-    };
-
-    if (document.readyState === 'complete') {
-      scheduleVideo();
-    } else {
-      window.addEventListener('load', scheduleVideo, { once: true });
-    }
+    });
   }
 </script>
