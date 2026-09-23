@@ -1,7 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PortfolioHeader from '../components/PortfolioHeader.astro';
-import DotBackground from '../components/DotBackground.astro';
 import ComingSoonModal from '../components/ComingSoonModal.astro';
 import WorkflowCover from '../components/WorkflowCover.astro';
 import { cases } from '../lib/portfolio-cases';
@@ -10,20 +8,6 @@ import { withBase } from '../lib/paths';
 
 <BaseLayout title="Vanya Kolesnikov — продуктовый дизайнер">
   <main class="portfolio-preview">
-  <div class="background-layer" aria-hidden="true">
-    <div class="intro__depth">
-      <DotBackground />
-    </div>
-  </div>
-  <section class="intro" aria-label="Вступление">
-    <div class="preview">
-    <PortfolioHeader />
-    <div class="caption">
-      <h1>Джуниор<br />продуктовый дизайнер</h1>
-      <p>Помогаю превращать сложные задачи в понятный опыт.</p>
-    </div>
-    </div>
-  </section>
   <section class="projects-plate" aria-labelledby="projects-heading">
     <div class="projects-layout">
       <aside class="about">
@@ -46,6 +30,7 @@ import { withBase } from '../lib/paths';
             <span>Vanya_UXUI</span>
           </button>
         </div>
+        <a class="contact-link resume-link" href="https://disk.yandex.ru/i/VJDTO9RAihjU1w" target="_blank" rel="noopener noreferrer">Резюме ↗</a>
         <p class="copy-status" role="status" aria-live="polite"></p>
       </aside>
       <div class="projects-column">
@@ -105,12 +90,9 @@ import { withBase } from '../lib/paths';
 </script>
 
 <style>
-  .portfolio-preview { background: #080808; isolation: isolate; }
-  .background-layer { position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; background: #080808; }
-
-  .intro__depth { position: absolute; inset: 0; }
-  .intro { position: sticky; top: 0; z-index: 1; min-height: 100svh; }
-  .projects-plate { position: relative; z-index: 2; min-height: 100svh; margin-top: -40px; padding-block: 96px 140px; border-radius: 48px 48px 0 0; background: #fff; box-shadow: 0 -20px 70px rgb(0 0 0 / 0.18); }
+  .portfolio-preview { background: #fff; }
+  .projects-plate { min-height: 100svh; padding-block: 48px 100px; background: #fff; }
+  .resume-link { margin-top: 8px; }
   .about { position: sticky; top: 32px; align-self: start; }
   .projects-layout { width: min(1360px, calc(100% - 96px)); margin-inline: auto; display: grid; grid-template-columns: minmax(240px, 320px) minmax(0, 1fr); gap: 48px; color: #171717; }
   .about h2, .projects-heading { font-size: 26px; line-height: 1.25; font-weight: 500; letter-spacing: -0.035em; }
@@ -163,30 +145,5 @@ import { withBase } from '../lib/paths';
   @media (max-width: 900px) { .about { position: static; max-height: none; overflow: visible; } }
   @media (max-width: 900px) { .projects-column { border-top: 1px solid #e5e5e5; padding-top: 32px; } }
   .projects-list { display: flex; flex-direction: column; gap: 32px; }
-  .preview { position: relative; width: min(1360px, calc(100% - 96px)); margin-inline: auto; min-height: 100svh; color: #f3f1e8; padding-block: 36px 64px; display: flex; flex-direction: column; justify-content: space-between; pointer-events: none; }
-  .intro-header { display: flex; align-items: center; justify-content: space-between; gap: 24px; pointer-events: auto; }
-  .intro-author { font-size: 20px; font-weight: 500; text-decoration: none; letter-spacing: -.03em; }
-  .intro-resume { display: inline-flex; gap: 20px; align-items: center; padding: 11px 20px; border: 1px solid #777; border-radius: 100px; text-decoration: none; font-size: 14px; }
-  .intro-resume:hover { background: #f3f1e8; color: #080808; }
-  .intro-header a:focus-visible { outline: 2px solid #f3f1e8; outline-offset: 5px; }
-  .back { align-self: flex-start; color: #aaa99f; font-size: 14px; text-decoration: none; pointer-events: auto; }
-  .back:hover { color: #ffd718; }
-  .back:focus-visible { outline: 2px solid #ffd718; outline-offset: 8px; }
-  .caption { margin-block: 100px; }
-  .label, .signature { font: 11px/1.5 monospace; letter-spacing: 0.16em; color: #929185; }
-  h1 { margin: 24px 0; font-size: clamp(44px, 7vw, 100px); font-weight: 400; line-height: 1.04; letter-spacing: -0.055em; }
-  p { color: #aaa99f; font-size: 15px; }
-  .signature { align-self: flex-end; }
-  @media (max-width: 900px) { .preview { width: calc(100% - 48px); } }
-  @media (max-width: 600px) { .preview { padding-block: 28px 48px; } .signature { align-self: flex-start; } .intro-author { font-size: 17px; } .intro-resume { padding: 9px 14px; gap: 10px; } }
-  @media (max-width: 480px) { .preview { width: calc(100% - 40px); } h1 { font-size: clamp(30px, 8.6vw, 42px); } }
-  @media (max-width: 600px) { .projects-plate { border-radius: 28px 28px 0 0; margin-top: -24px; padding-block: 56px 80px; } }
-
+  @media (max-width: 600px) { .projects-plate { padding-block: 32px 80px; } }
 </style>
-
-
-
-
-
-
-
