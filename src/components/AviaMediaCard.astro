@@ -1,0 +1,83 @@
+---
+interface Props { id: string; label: string; images: string[]; animation: string; tone?: string; }
+const { id, label, images, animation, tone = 'gray' } = Astro.props;
+---
+<figure class="media-gallery" id={id} data-images={JSON.stringify(images)} data-animation={animation} aria-label={label}>
+  <div class:list={['media-stage', tone]} tabindex="0" role="group" aria-roledescription="слайдер" aria-label={label}>
+    <img src={images[0]} alt={`${label}, изображение 1 из ${images.length}`} loading="lazy" decoding="async" width="370" height="520" />
+  </div>
+  <div class="media-controls">
+    <button type="button" class="mode-button" aria-label="Смотреть GIF" title="Смотреть GIF" aria-pressed="false">
+      <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="5"/><path d="m10 8 5 4-5 4Z"/></svg>
+      <svg class="images-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="15" height="15" rx="4"/><path d="M16 21H7a4 4 0 0 1-4-4V8m3 7 4-4 3 3 3-4 4 5"/><circle cx="10" cy="7" r="1"/></svg>
+    </button>
+    <span class="media-status" aria-live="polite" aria-atomic="true">1 / {images.length}</span>
+    <div class="arrows">
+      <button type="button" class="prev-button" aria-label="Предыдущее изображение" title="Предыдущее изображение"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg></button>
+      <button type="button" class="next-button" aria-label="Следующее изображение" title="Следующее изображение"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+    </div>
+  </div>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.media-gallery').forEach(gallery => {
+    const images: string[] = JSON.parse(gallery.dataset.images || '[]');
+    const picture = gallery.querySelector('img')!;
+    const stage = gallery.querySelector<HTMLElement>('.media-stage')!;
+    const mode = gallery.querySelector<HTMLButtonElement>('.mode-button')!;
+    const prev = gallery.querySelector<HTMLButtonElement>('.prev-button')!;
+    const next = gallery.querySelector<HTMLButtonElement>('.next-button')!;
+    const status = gallery.querySelector<HTMLElement>('.media-status')!;
+    const label = gallery.getAttribute('aria-label')!;
+    let index = 0;
+    let animated = false;
+    const update = () => {
+      picture.src = animated ? gallery.dataset.animation! : images[index];
+      picture.alt = animated ? `${label}, GIF-анимация` : `${label}, изображение ${index + 1} из ${images.length}`;
+      mode.setAttribute('aria-pressed', String(animated));
+      mode.setAttribute('aria-label', animated ? 'Смотреть изображения' : 'Смотреть GIF');
+      mode.title = mode.getAttribute('aria-label')!;
+      gallery.classList.toggle('is-animated', animated);
+      prev.disabled = next.disabled = animated || images.length < 2;
+      status.textContent = animated ? 'GIF' : `${index + 1} / ${images.length}`;
+    };
+    const move = (direction: number) => {
+      if (animated) return;
+      index = (index + direction + images.length) % images.length;
+      update();
+    };
+    mode.addEventListener('click', () => { animated = !animated; update(); });
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    stage.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') { e.preventDefault(); move(e.key === 'ArrowLeft' ? -1 : 1); } });
+    let startX = 0;
+    let startY = 0;
+    stage.addEventListener('touchstart', e => { startX = e.changedTouches[0].clientX; startY = e.changedTouches[0].clientY; }, { passive: true });
+    stage.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) move(dx < 0 ? 1 : -1);
+    }, { passive: true });
+    update();
+  });
+</script>
+
+<style>
+  .media-gallery { width: 100%; margin: 0; }
+  .media-stage { width: 100%; height: 520px; border-radius: 24px; overflow: hidden; background: #eee; }
+  @supports (corner-shape: superellipse(1.6)) { .media-stage { corner-shape: superellipse(1.6); } }
+  .media-stage.lavender { background: #eae8f0; }
+  .media-stage.dark { background: #808080; }
+  .media-stage img { width: 100%; height: 100%; object-fit: contain; user-select: none; }
+  .media-controls { display: flex; align-items: center; gap: 12px; padding-top: 12px; }
+  button { width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 50%; background: #f0f0f0; color: #393934; cursor: pointer; padding: 0; transition: background .18s, opacity .18s; }
+  button svg { width: 21px; height: 21px; }
+  button:hover:not(:disabled) { background: #e2e2e2; }
+  button:focus-visible, .media-stage:focus-visible { outline: 2px solid #555; outline-offset: 4px; }
+  button:disabled { opacity: .3; cursor: default; }
+  .arrows { margin-left: auto; display: flex; gap: 12px; }
+  .media-status { font: 500 11px/1 'Onest', sans-serif; color: #aaa; }
+  .images-icon, .is-animated .play-icon { display: none; }
+  .is-animated .images-icon { display: block; }
+  @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+</style>

@@ -4,6 +4,17 @@ import { withBase } from './paths';
 
 export const cases = [
   {
+    title: 'Ускорил покупку билета на Яндекс Авиа',
+    type: 'Концепт',
+    href: '/yandex-avia',
+    cover: {
+      desktop: withBase('/yandex-avia/cover.svg'),
+      tablet: withBase('/yandex-avia/cover.svg'),
+      mobile: withBase('/yandex-avia/cover.svg'),
+      alt: 'Редизайн карточки билета Яндекс Авиа',
+    },
+  },
+  {
     title: 'Сделал редизайн рекламного лендинга Онлайн-колледжа',
     type: 'ИнтернетУрок',
     href: '/made-redesign-landing-of-online-college',
@@ -28,5 +39,6 @@ export const cases = [
     },
   },
 ];
+
 
 
