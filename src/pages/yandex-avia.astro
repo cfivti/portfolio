@@ -1,191 +1,46 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import MediaCard from '../components/AviaMediaCard.astro';
-import { withBase } from '../lib/paths';
-const asset = (name: string) => withBase('/yandex-avia/' + name);
 ---
 
-<BaseLayout title="Яндекс Авиа — редизайн выбора билетов | Иван Колесников">
-  <main class="case">
-    <header class="topbar">
-      <a class="back" href={withBase('/')} aria-label="Вернуться к проектам">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5m6-6-6 6 6 6"/></svg>
-        Все проекты
-      </a>
-      <span>Кейс / 2026</span>
-    </header>
+<BaseLayout title="Яндекс ави — Иван Колесников">
+  <main class="case-page">
+    <article class="case-copy">
+      <p class="overline">Страница кейса</p>
+      <h1>Яндекс ави</h1>
 
-    <div class="layout">
-      <aside class="intro-col">
-        <div class="intro-sticky">
-          <p class="eyebrow"><span class="dot"></span> Самостоятельный концепт</p>
-          <h1>Яндекс Авиа.<br />Чтобы билет было<br />проще считывать.</h1>
-          <p class="lead">Пересобрал экран деталей рейса, карточку билета и фильтры вокруг простой идеи: человек сканирует экран, а не читает его целиком.</p>
-          <dl class="meta">
-            <div><dt>Роль</dt><dd>UX/UI-дизайнер</dd></div>
-            <div><dt>Фокус</dt><dd>Визуальная иерархия</dd></div>
-            <div><dt>Инструменты</dt><dd>Figma, прототипирование</dd></div>
-          </dl>
-          <nav class="index-nav" aria-label="Навигация по кейсу">
-            <a href="#context"><span>01</span> Контекст</a>
-            <a href="#process"><span>02</span> Процесс</a>
-            <a href="#solution"><span>03</span> Решение</a>
-            <a href="#result"><span>04</span> Итог</a>
-          </nav>
-        </div>
-      </aside>
+      <section aria-labelledby="context-heading">
+        <h2 id="context-heading">Контекст и проблема</h2>
+        <p>В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться. Пользователь не успевает разобраться и уходит к конкурентам, где всё понятно и привычно.</p>
+        <p>Люди не читают такие экраны, а сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.</p>
+      </section>
 
-      <article class="content">
-        <figure class="cover">
-          <img src={asset('cover.svg')} alt="Концепт новой карточки авиабилета Яндекс Авиа" width="1040" height="620" fetchpriority="high" decoding="async" />
-          <figcaption>Яндекс Авиа — концепт редизайна</figcaption>
-        </figure>
-
-        <section id="context" class="chapter" aria-labelledby="context-title">
-          <p class="overline">01 / Контекст</p>
-          <h2 id="context-title">Контекст и проблема</h2>
-          <div class="prose">
-            <p>В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться. Пользователь не успевает разобраться и может уйти к конкурентам, где всё понятно и привычно.</p>
-            <p>Люди не читают такие экраны, а сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.</p>
-          </div>
-          <div class="hypothesis">
-            <span>Гипотеза</span>
-            <p>Если выстроить понятную последовательность информации, человеку будет проще оценить маршрут и перейти к выбору билета.</p>
-          </div>
-        </section>
-
-        <section id="process" class="chapter" aria-labelledby="process-title">
-          <p class="overline">02 / Работа над проектом</p>
-          <h2 id="process-title">Процесс</h2>
-          <ol class="steps">
-            <li>
-              <span class="step-no">01</span>
-              <div>
-                <h3>Изучил конкурентов</h3>
-                <p>Собрал примеры, разобрал элементы интерфейсов и сценарии пользователей: где расположен маршрут, как показаны пересадки и что видно первым.</p>
-              </div>
-            </li>
-            <li>
-              <span class="step-no">02</span>
-              <div>
-                <h3>Пересобрал экран деталей</h3>
-                <p>Расставил приоритеты между временем, аэропортами и пересадками. Прототип показал знакомым, чтобы проверить, как считывается информация.</p>
-              </div>
-            </li>
-            <li>
-              <span class="step-no">03</span>
-              <div>
-                <h3>Доработал связанные экраны</h3>
-                <p>Перенёс ту же логику на карточку билета и фильтры: важное — на виду, второстепенное — в понятных группах.</p>
-              </div>
-            </li>
-          </ol>
-        </section>
-
-        <section id="solution" class="chapter" aria-labelledby="solution-title">
-          <p class="overline">03 / Дизайн</p>
-          <h2 id="solution-title">Решение</h2>
-          <p class="solution-lead">Вместо сплошного набора данных — несколько последовательных блоков. Маршрут, условия и стоимость можно просматривать отдельно, не теряя контекст.</p>
-
-          <section class="feature" aria-labelledby="details-title">
-            <div class="feature-title"><span>01 / 03</span><h3 id="details-title">Детали рейса</h3></div>
-            <p>Выстроил маршрут в последовательность «вылет → пересадка → прилёт». Время и аэропорты стали опорными точками, а длительность пересадки — частью маршрута.</p>
-            <MediaCard id="details-gallery" label="Маршрут и детали рейса" images={[asset('route.webp'), asset('details.webp')]} animation={asset('flight.gif')} tone="lavender" />
-          </section>
-
-          <section class="feature" aria-labelledby="ticket-title">
-            <div class="feature-title"><span>02 / 03</span><h3 id="ticket-title">Карточка билета</h3></div>
-            <p>Выделил цену и маршрут, а багаж, авиакомпании и дополнительные отметки собрал в визуальные группы. Так карточку можно считывать по блокам.</p>
-            <MediaCard id="ticket-gallery" label="Карточка авиабилета" images={[asset('ticket-1.svg'), asset('ticket-2.svg'), asset('ticket-3.svg')]} animation={asset('ticket.gif')} tone="gray" />
-          </section>
-
-          <section class="feature" aria-labelledby="filters-title">
-            <div class="feature-title"><span>03 / 03</span><h3 id="filters-title">Фильтры</h3></div>
-            <p>Сгруппировал настройки по задачам — пересадки, время и багаж. Для маршрута туда и обратно предусмотрел отдельную настройку времени.</p>
-            <MediaCard id="filters-gallery" label="Фильтры поиска билетов" images={[asset('filters-1.svg'), asset('filters-2.svg')]} animation={asset('filters.gif')} tone="dark" />
-          </section>
-        </section>
-
-        <section id="result" class="chapter result" aria-labelledby="result-title">
-          <p class="overline">04 / Рефлексия</p>
-          <h2 id="result-title">Итог</h2>
-          <div class="prose">
-            <p>Получился единый сценарий: сначала человек сравнивает билеты, затем разбирается в маршруте и условиях. Информация подаётся от главного к деталям.</p>
-            <p>Это самостоятельный концепт, а не изменение действующего продукта. Проверка на знакомых дала возможность посмотреть на понятность решения, но полноценные продуктовые метрики ещё предстоит измерить.</p>
-          </div>
-        </section>
-
-        <footer>
-          <span>Самостоятельный концепт · 2026</span>
-          <a href={withBase('/')}>Все проекты ↗</a>
-        </footer>
-      </article>
-    </div>
+      <section aria-labelledby="process-heading">
+        <h2 id="process-heading">Процесс</h2>
+        <ul>
+          <li>Собрал всех конкурентов, разобрал каждый элемент интерфейса и сценарий пользователя</li>
+          <li>Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым</li>
+          <li>Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым</li>
+        </ul>
+      </section>
+    </article>
   </main>
 </BaseLayout>
 
 <style>
-  :global(html) { scroll-behavior: smooth; }
-  .case { min-height: 100svh; color: #171717; font: 500 16px/1.42 'Onest', Arial, sans-serif; background: #fff; }
-  .topbar, .layout { width: min(930px, calc(100% - 48px)); margin-inline: auto; }
-  .topbar { padding: 30px 0 46px; display: flex; align-items: center; justify-content: space-between; gap: 20px; font-size: 12px; color: #aaa; }
-  .back { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-size: 13px; color: #666; }
-  .back:hover { color: #171717; }
-  .back svg { width: 18px; height: 18px; }
-  .layout { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 370px); justify-content: space-between; gap: 48px; align-items: start; }
-  .intro-sticky { position: sticky; top: 30px; padding-top: 14px; }
-  .eyebrow { display: flex; align-items: center; gap: 9px; color: #999; margin: 0 0 24px; font-size: 12px; }
-  .dot { width: 7px; height: 7px; border-radius: 100%; background: #8557ff; flex: none; }
-  h1 { font-size: 24px; font-weight: 400; letter-spacing: -.035em; line-height: 1.22; margin: 0; }
-  .lead { margin-top: 20px; max-width: 340px; font-size: 15px; color: #525252; line-height: 1.55; }
-  .meta { display: grid; gap: 13px; max-width: 355px; margin: 31px 0 0; padding: 20px 0; border-block: 1px solid #eee; }
-  .meta div { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; font-size: 12px; }
-  .meta dt { color: #999; }
-  .meta dd { margin: 0; text-align: right; }
-  .index-nav { display: grid; gap: 12px; margin-top: 30px; justify-items: start; }
-  .index-nav a { text-decoration: none; display: flex; align-items: baseline; gap: 14px; font-size: 13px; color: #777; }
-  .index-nav a:hover { color: #171717; }
-  .index-nav span { font-size: 11px; color: #aaa; }
-  .content { min-width: 0; padding-bottom: 40px; }
-  .cover { margin: 0 0 48px; }
-  .cover img { display: block; width: 100%; height: auto; border-radius: 20px; }
-  .cover figcaption { margin: 10px 2px 0; font-size: 11px; color: #aaa; }
-  .chapter { scroll-margin-top: 30px; margin-bottom: 69px; }
-  .overline { font-size: 11px; color: #999; margin: 0 0 7px; }
-  h2 { font: 500 18px/1.3 'Onest', sans-serif; letter-spacing: -.02em; color: rgb(0 0 0 / .35); margin: 0 0 16px; }
-  .prose p, .solution-lead { margin: 0; font-size: 16px; line-height: 1.43; letter-spacing: -.012em; }
-  .prose p + p { margin-top: 17px; }
-  .hypothesis { border-radius: 20px; padding: 21px; background: #f5f4f9; margin-top: 27px; }
-  .hypothesis span { display: block; color: #8b819e; font-size: 12px; margin-bottom: 9px; }
-  .hypothesis p { font-size: 15px; line-height: 1.48; margin: 0; }
-  .steps { list-style: none; margin: 0; padding: 0; }
-  .steps li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 15px; padding: 19px 0 21px; border-top: 1px solid #eee; }
-  .steps li:last-child { border-bottom: 1px solid #eee; }
-  .step-no { font-size: 11px; color: #aaa; padding-top: 3px; }
-  .steps h3 { font-size: 16px; font-weight: 500; line-height: 1.35; margin: 0 0 7px; }
-  .steps p { font-size: 14px; line-height: 1.5; color: #555; margin: 0; }
-  .solution-lead { margin-bottom: 31px; }
-  .feature + .feature { margin-top: 61px; }
-  .feature-title { display: flex; align-items: baseline; gap: 13px; margin-bottom: 10px; }
-  .feature-title span { font-size: 11px; white-space: nowrap; color: #aaa; }
-  .feature h3 { font-size: 18px; font-weight: 500; letter-spacing: -.02em; margin: 0; }
-  .feature > p { margin: 0 0 20px; font-size: 15px; line-height: 1.48; color: #555; }
-  footer { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; border-top: 1px solid #eee; padding-top: 22px; font-size: 11px; color: #999; }
-  footer a { text-decoration: none; color: #555; }
-  a:focus-visible { outline: 2px solid #7554ef; border-radius: 3px; outline-offset: 4px; }
-  @media (max-width: 810px) {
-    .topbar, .layout { width: min(370px, calc(100% - 32px)); }
-    .topbar { padding: 21px 0 26px; }
-    .layout { display: block; }
-    .intro-sticky { position: static; padding: 0; }
-    .eyebrow { margin-bottom: 18px; }
-    .lead { margin-top: 14px; }
-    .meta { margin-top: 25px; }
-    .index-nav { display: flex; overflow-x: auto; gap: 21px; white-space: nowrap; padding: 0 0 13px; margin: 22px 0 15px; scrollbar-width: none; }
-    .index-nav::-webkit-scrollbar { display: none; }
-    .index-nav a { gap: 6px; flex: none; }
-    .cover { margin-bottom: 42px; }
-    .chapter { margin-bottom: 60px; }
+  .case-page { min-height: 100svh; background: #fff; color: #171717; font: 500 16px/1.48 'Onest', Arial, sans-serif; }
+  .case-copy { width: min(580px, calc(100% - 40px)); margin: 0 auto; padding: clamp(48px, 8vw, 100px) 0 120px; }
+  .overline { margin: 0 0 10px; font-size: 14px; color: #929292; }
+  h1 { font-size: 32px; line-height: 1.2; font-weight: 400; letter-spacing: -.035em; margin: 0 0 72px; }
+  section + section { margin-top: 64px; }
+  h2 { margin: 0 0 18px; font-size: 18px; font-weight: 500; color: rgb(0 0 0 / .35); line-height: 1.3; }
+  p { margin: 0; }
+  section p + p { margin-top: 18px; }
+  ul { margin: 0; padding-left: 22px; }
+  li { padding-left: 3px; }
+  li + li { margin-top: 14px; }
+  @media (max-width: 600px) {
+    .case-copy { padding-top: 46px; padding-bottom: 80px; }
+    h1 { font-size: 24px; margin-bottom: 56px; }
+    section + section { margin-top: 52px; }
   }
-  @media (prefers-reduced-motion: reduce) { :global(html) { scroll-behavior: auto; } }
 </style>
