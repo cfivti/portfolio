@@ -47,7 +47,10 @@ const {
           {solution.map((paragraph) => <p>{paragraph}</p>)}
         </div>
         {mediaAfterSolution && (
-          <div class="media-insert"><CaseMediaPlaceholder /></div>
+          <div class="media-insert">
+            <CaseMediaPlaceholder />
+            <p class="media-caption">Экономия места</p>
+          </div>
         )}
       </section>
     )}
@@ -89,6 +92,7 @@ const {
   li { padding-left: 0; }
   li + li { margin-top: 12px; }
   .media-insert { margin-top: 42px; }
+  .media-caption { margin: 18px 9px 0; color: rgba(0, 0, 0, .6); font-size: 16px; }
   @media (max-width: 480px) {
     .case-copy { padding-top: 48px; padding-bottom: 88px; }
     h1 { margin-bottom: 40px; }
