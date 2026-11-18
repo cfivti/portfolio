@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="620" viewBox="0 0 1040 620">
+  <rect width="1040" height="620" fill="#f1f1f1"/>
+  <g font-family="Arial, sans-serif" fill="#151515">
+    <text x="74" y="100" font-size="18" fill="#888">ЯНДЕКС ЛАВКА / КОНЦЕПТ</text>
+    <text x="74" y="260" font-weight="500" font-size="52">Витрина бренда</text>
+    <text x="74" y="327" font-weight="500" font-size="52">в Яндекс Лавке</text>
+    <text x="74" y="535" font-size="18" fill="#888">UX/UI · 2026</text>
+  </g>
+</svg>

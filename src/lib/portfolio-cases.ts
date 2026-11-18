@@ -4,14 +4,25 @@ import { withBase } from './paths';
 
 export const cases = [
   {
-    title: 'Ускорил покупку билета на Яндекс Авиа',
-    type: 'Концепт',
+    title: 'Редизайн экрана деталей авиа-билета',
+    type: 'Концепт · Яндекс Авиа',
     href: '/yandex-avia',
     cover: {
       desktop: withBase('/yandex-avia/cover.svg'),
       tablet: withBase('/yandex-avia/cover.svg'),
       mobile: withBase('/yandex-avia/cover.svg'),
-      alt: 'Редизайн карточки билета Яндекс Авиа',
+      alt: 'Редизайн карточки авиабилета',
+    },
+  },
+  {
+    title: 'Витрина бренда в Яндекс Лавке',
+    type: 'Концепт · Яндекс Лавка',
+    href: '/yandex-lavka',
+    cover: {
+      desktop: withBase('/yandex-lavka/cover.svg'),
+      tablet: withBase('/yandex-lavka/cover.svg'),
+      mobile: withBase('/yandex-lavka/cover.svg'),
+      alt: 'Витрина бренда в Яндекс Лавке',
     },
   },
   {
@@ -39,6 +50,3 @@ export const cases = [
     },
   },
 ];
-
-
-

@@ -1,0 +1,77 @@
+---
+interface Props {
+  title: string;
+  context: string[];
+  process: string[];
+  solution?: string[];
+}
+const { title, context, process, solution = [] } = Astro.props;
+---
+
+<main class="case-page">
+  <article class="case-copy">
+    <h1>{title}</h1>
+
+    <section aria-labelledby="case-context">
+      <h2 id="case-context">Контекст и проблема</h2>
+      <div class="text-paragraphs">
+        {context.map((paragraph) => <p>{paragraph}</p>)}
+      </div>
+    </section>
+
+    <section aria-labelledby="case-process">
+      <h2 id="case-process">Процесс</h2>
+      <ul>
+        {process.map((item) => <li>{item}</li>)}
+      </ul>
+    </section>
+
+    {solution.length > 0 && (
+      <section aria-labelledby="case-solution">
+        <h2 id="case-solution">Решение</h2>
+        <div class="text-paragraphs">
+          {solution.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+      </section>
+    )}
+  </article>
+</main>
+
+<style>
+  .case-page {
+    min-height: 100svh;
+    background: #fff;
+    font: 500 16px/1.48 'Onest', Arial, sans-serif;
+    color: rgba(0, 0, 0, .6);
+  }
+  .case-copy {
+    width: min(370px, calc(100% - 40px));
+    margin-inline: auto;
+    padding: clamp(54px, 8vw, 88px) 0 128px;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1.22;
+    letter-spacing: -.025em;
+    color: #000;
+    margin: 0 0 44px;
+  }
+  section + section { margin-top: 43px; }
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.3;
+    color: #000;
+    margin: 0 0 17px;
+  }
+  .text-paragraphs p { margin: 0; }
+  .text-paragraphs p + p { margin-top: 18px; }
+  ul { margin: 0; padding-left: 22px; }
+  li { padding-left: 0; }
+  li + li { margin-top: 12px; }
+  @media (max-width: 480px) {
+    .case-copy { padding-top: 48px; padding-bottom: 88px; }
+    h1 { margin-bottom: 40px; }
+  }
+</style>

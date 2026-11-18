@@ -1,46 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseTextPage from '../components/CaseTextPage.astro';
+
+const context = [
+  'В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться.',
+  'Пользователь не успевает разобраться и уходит к конкурентам, где всё понятно и привычно. Люди сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.',
+];
+const process = [
+  'Собрал всех конкурентов, разобрал каждый элемент интерфейса и сценарий пользователя',
+  'Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым',
+  'Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым',
+];
+const solution = [
+  'В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться.',
+  'Пользователь не успевает разобраться и уходит к конкурентам, где всё понятно и привычно. Люди сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.',
+];
 ---
 
-<BaseLayout title="Яндекс ави — Иван Колесников">
-  <main class="case-page">
-    <article class="case-copy">
-      <p class="overline">Страница кейса</p>
-      <h1>Яндекс ави</h1>
-
-      <section aria-labelledby="context-heading">
-        <h2 id="context-heading">Контекст и проблема</h2>
-        <p>В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться. Пользователь не успевает разобраться и уходит к конкурентам, где всё понятно и привычно.</p>
-        <p>Люди не читают такие экраны, а сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.</p>
-      </section>
-
-      <section aria-labelledby="process-heading">
-        <h2 id="process-heading">Процесс</h2>
-        <ul>
-          <li>Собрал всех конкурентов, разобрал каждый элемент интерфейса и сценарий пользователя</li>
-          <li>Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым</li>
-          <li>Пересобрал экран деталей, снизил время считывания информации и дал затестить знакомым</li>
-        </ul>
-      </section>
-    </article>
-  </main>
+<BaseLayout title="Редизайн экрана деталей авиа-билета — Иван Колесников">
+  <CaseTextPage title="Редизайн экрана деталей авиа-билета" context={context} process={process} solution={solution} />
 </BaseLayout>
-
-<style>
-  .case-page { min-height: 100svh; background: #fff; color: rgb(0 0 0 / .6); font: 500 16px/1.48 'Onest', Arial, sans-serif; }
-  .case-copy { width: min(580px, calc(100% - 40px)); margin: 0 auto; padding: clamp(48px, 8vw, 100px) 0 120px; }
-  .overline { margin: 0 0 10px; font-size: 16px; color: rgb(0 0 0 / .6); }
-  h1 { font-size: 24px; line-height: 1.2; font-weight: 500; color: #000; letter-spacing: -.035em; margin: 0 0 72px; }
-  section + section { margin-top: 64px; }
-  h2 { margin: 0 0 18px; font-size: 18px; font-weight: 500; color: #000; line-height: 1.3; }
-  p { margin: 0; }
-  section p + p { margin-top: 18px; }
-  ul { margin: 0; padding-left: 22px; }
-  li { padding-left: 3px; }
-  li + li { margin-top: 14px; }
-  @media (max-width: 600px) {
-    .case-copy { padding-top: 46px; padding-bottom: 80px; }
-    h1 { font-size: 24px; margin-bottom: 56px; }
-    section + section { margin-top: 52px; }
-  }
-</style>
