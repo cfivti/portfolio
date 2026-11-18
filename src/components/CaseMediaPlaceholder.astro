@@ -1,0 +1,101 @@
+---
+interface Props { label?: string; }
+const { label = '[ До/после блока билета ]' } = Astro.props;
+---
+
+<figure class="comparison-placeholder" aria-label="Заглушка галереи для сравнения до и после">
+  <div class="placeholder-label">{label}</div>
+  <div class="placeholder-controls" aria-label="Управление слайдами">
+    <button class="placeholder-arrow" type="button" data-direction="-1" aria-label="Предыдущий слайд">&lt;</button>
+    <div class="placeholder-pagination" role="group" aria-label="Выбор слайда">
+      <button class="placeholder-dot is-active" type="button" aria-label="Слайд 1 из 3" aria-current="true" data-slide="0"></button>
+      <button class="placeholder-dot" type="button" aria-label="Слайд 2 из 3" data-slide="1"></button>
+      <button class="placeholder-dot" type="button" aria-label="Слайд 3 из 3" data-slide="2"></button>
+    </div>
+    <button class="placeholder-arrow" type="button" data-direction="1" aria-label="Следующий слайд">&gt;</button>
+  </div>
+</figure>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.comparison-placeholder').forEach(panel => {
+    const dots = Array.from(panel.querySelectorAll<HTMLButtonElement>('.placeholder-dot'));
+    let index = 0;
+    const activate = (next: number) => {
+      index = (next + dots.length) % dots.length;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('is-active', i === index);
+        if (i === index) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+    };
+    panel.querySelectorAll<HTMLButtonElement>('[data-direction]').forEach(arrow => {
+      arrow.addEventListener('click', () => activate(index + Number(arrow.dataset.direction)));
+    });
+    dots.forEach((dot, i) => dot.addEventListener('click', () => activate(i)));
+  });
+</script>
+
+<style>
+  .comparison-placeholder {
+    position: relative;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 370 / 348;
+    margin: 0;
+    border-radius: 18px;
+    background: #ededed;
+    overflow: hidden;
+    color: #171717;
+  }
+  .placeholder-label {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 20px 25px 54px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #171717;
+    text-align: center;
+    pointer-events: none;
+  }
+  .placeholder-controls {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 34px;
+  }
+  .placeholder-arrow {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border: 0;
+    border-radius: 50%;
+    background: #fff;
+    color: #343434;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    font: 500 17px/1 'Onest', sans-serif;
+    cursor: pointer;
+  }
+  .placeholder-arrow:hover { background: #fafafa; }
+  .placeholder-pagination { display: flex; gap: 9px; align-items: center; }
+  .placeholder-dot {
+    display: block;
+    box-sizing: content-box;
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 100%;
+    background: rgba(255, 255, 255, .7);
+    cursor: pointer;
+  }
+  .placeholder-dot.is-active { background: #fff; box-shadow: 0 0 0 1px rgba(0,0,0,.04); }
+  .placeholder-arrow:focus-visible, .placeholder-dot:focus-visible { outline: 2px solid #222; outline-offset: 3px; }
+</style>
