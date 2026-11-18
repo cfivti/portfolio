@@ -1,11 +1,22 @@
 ---
+import CaseMediaPlaceholder from './CaseMediaPlaceholder.astro';
+
 interface Props {
   title: string;
   context: string[];
   process: string[];
   solution?: string[];
+  mediaAfterProcess?: boolean;
+  mediaAfterSolution?: boolean;
 }
-const { title, context, process, solution = [] } = Astro.props;
+const {
+  title,
+  context,
+  process,
+  solution = [],
+  mediaAfterProcess = false,
+  mediaAfterSolution = false,
+} = Astro.props;
 ---
 
 <main class="case-page">
@@ -19,11 +30,14 @@ const { title, context, process, solution = [] } = Astro.props;
       </div>
     </section>
 
-    <section aria-labelledby="case-process">
+    <section class:list={{ 'chapter-with-media': mediaAfterProcess }} aria-labelledby="case-process">
       <h2 id="case-process">Процесс</h2>
       <ul>
         {process.map((item) => <li>{item}</li>)}
       </ul>
+      {mediaAfterProcess && (
+        <div class="media-insert"><CaseMediaPlaceholder /></div>
+      )}
     </section>
 
     {solution.length > 0 && (
@@ -32,6 +46,9 @@ const { title, context, process, solution = [] } = Astro.props;
         <div class="text-paragraphs">
           {solution.map((paragraph) => <p>{paragraph}</p>)}
         </div>
+        {mediaAfterSolution && (
+          <div class="media-insert"><CaseMediaPlaceholder /></div>
+        )}
       </section>
     )}
   </article>
@@ -58,6 +75,7 @@ const { title, context, process, solution = [] } = Astro.props;
     margin: 0 0 44px;
   }
   section + section { margin-top: 43px; }
+  section.chapter-with-media + section { margin-top: 24px; }
   h2 {
     font-size: 18px;
     font-weight: 500;
@@ -70,6 +88,7 @@ const { title, context, process, solution = [] } = Astro.props;
   ul { margin: 0; padding-left: 22px; }
   li { padding-left: 0; }
   li + li { margin-top: 12px; }
+  .media-insert { margin-top: 42px; }
   @media (max-width: 480px) {
     .case-copy { padding-top: 48px; padding-bottom: 88px; }
     h1 { margin-bottom: 40px; }
