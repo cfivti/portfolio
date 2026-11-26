@@ -21,6 +21,7 @@ const {
 
 <main class="case-page">
   <article class="case-copy">
+    <slot name="hero" />
     <h1>{title}</h1>
 
     <section aria-labelledby="case-context">
@@ -36,7 +37,7 @@ const {
         {process.map((item) => <li>{item}</li>)}
       </ul>
       {mediaAfterProcess && (
-        <div class="media-insert"><CaseMediaPlaceholder /></div>
+        <div class="media-insert"><slot name="after-process"><CaseMediaPlaceholder /></slot></div>
       )}
     </section>
 
@@ -48,7 +49,7 @@ const {
         </div>
         {mediaAfterSolution && (
           <div class="media-insert">
-            <CaseMediaPlaceholder />
+            <slot name="after-solution"><CaseMediaPlaceholder /></slot>
             <p class="media-caption">Экономия места</p>
           </div>
         )}

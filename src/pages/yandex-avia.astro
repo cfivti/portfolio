@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaseTextPage from '../components/CaseTextPage.astro';
+import { withBase } from '../lib/paths';
+
+const media = (name: string) => withBase(`/yandex-avia/${name}`);
 
 const context = [
   'В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться.',
@@ -18,5 +21,27 @@ const solution = [
 ---
 
 <BaseLayout title="Редизайн экрана деталей авиа-билета — Иван Колесников">
-  <CaseTextPage title="Редизайн экрана деталей авиа-билета" context={context} process={process} solution={solution} mediaAfterProcess mediaAfterSolution />
+  <CaseTextPage title="Редизайн экрана деталей авиа-билета" context={context} process={process} solution={solution} mediaAfterProcess mediaAfterSolution>
+    <video slot="hero" class="case-video phone-screen" src={media('case-overview.mp4')} poster={media('case-overview-poster.webp')} aria-label="Обзор сценария от поиска билета до выбора тарифа" controls muted playsinline preload="metadata"></video>
+    <video slot="after-process" class="case-video" src={media('search-catalog.mp4')} poster={media('search-catalog-poster.webp')} aria-label="Трансформация каталога и деталей авиабилета" controls muted playsinline preload="none"></video>
+    <video slot="after-solution" class="case-video" src={media('flight-information.mp4')} poster={media('flight-information-poster.webp')} aria-label="Попап с информацией о рейсе" controls muted playsinline preload="none"></video>
+  </CaseTextPage>
 </BaseLayout>
+
+<style>
+  .case-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    border-radius: 22px;
+    background: #eae9ef;
+    object-fit: contain;
+  }
+  .phone-screen {
+    width: min(224px, 58%);
+    aspect-ratio: 402 / 874;
+    margin: 0 auto clamp(32px, 7vw, 48px);
+    border-radius: 28px;
+    object-fit: cover;
+  }
+</style>
