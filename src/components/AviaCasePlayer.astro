@@ -1,0 +1,216 @@
+---
+interface Frame {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  video: string;
+  poster: string;
+  label: string;
+  frames?: Frame[];
+  phone?: boolean;
+}
+
+const { video, poster, label, frames = [], phone = false } = Astro.props;
+const hasFrames = frames.length > 0;
+const slides = ['Видео', ...frames.map(frame => frame.alt)];
+---
+
+<figure class:list={['avia-player', { phone }]} data-avia-player aria-label={label}>
+  <div class="media-frame">
+    <video class="slide" data-media-slide src={video} poster={poster} aria-label={label} autoplay muted playsinline loop preload="metadata"></video>
+    {frames.map(frame => <img class="slide" data-media-slide src={frame.src} alt={frame.alt} loading="lazy" decoding="async" hidden />)}
+  </div>
+  <div class:list={['player-controls', { 'with-slides': hasFrames }]} role="group" aria-label="Управление медиа">
+    {hasFrames && <button class="control" type="button" data-media-step="-1" aria-label="Предыдущий слайд" title="Предыдущий слайд">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 12H4m7-7-7 7 7 7"/></svg>
+    </button>}
+    {hasFrames && <button class="control" type="button" data-media-mode aria-label="Показать изображения" title="Показать изображения">
+      <svg data-media-show-frames viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3"/><path d="m4 16 4.7-4.5 3.2 3 2.9-2.7 5.2 4.7"/><circle cx="15.8" cy="9.3" r="1" fill="currentColor" stroke="none"/></svg>
+      <svg data-media-show-video viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true" hidden><rect x="3.5" y="5" width="17" height="14" rx="3"/><path d="m10 8.8 5 3.2-5 3.2z" fill="currentColor" stroke="none"/></svg>
+    </button>}
+    {hasFrames && <div class="pagination" role="group" aria-label="Слайды">
+      {slides.map((slide, i) => <button class="page-dot" data-media-dot={i} type="button" aria-label={slide} aria-current={i === 0 ? 'true' : undefined} title={slide}></button>)}
+    </div>}
+    <button class="control playback" type="button" data-media-play aria-label="Воспроизвести видео" title="Воспроизвести видео">
+      <svg data-media-play-icon viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.6a.8.8 0 0 1 1.2-.7l10 6.4a.8.8 0 0 1 0 1.4l-10 6.4a.8.8 0 0 1-1.2-.7Z"/></svg>
+      <svg data-media-pause-icon viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" hidden><rect x="7" y="5.5" width="3.3" height="13" rx="1"/><rect x="13.7" y="5.5" width="3.3" height="13" rx="1"/></svg>
+    </button>
+    {hasFrames && <button class="control" type="button" data-media-step="1" aria-label="Следующий слайд" title="Следующий слайд">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg>
+    </button>}
+  </div>
+</figure>
+
+<script>
+  for (const player of document.querySelectorAll<HTMLElement>('[data-avia-player]')) {
+    const video = player.querySelector<HTMLVideoElement>('video')!;
+    const slides = Array.from(player.querySelectorAll<HTMLElement>('[data-media-slide]'));
+    const dots = Array.from(player.querySelectorAll<HTMLButtonElement>('[data-media-dot]'));
+    const playback = player.querySelector<HTMLButtonElement>('[data-media-play]')!;
+    const playIcon = player.querySelector('[data-media-play-icon]')!;
+    const pauseIcon = player.querySelector('[data-media-pause-icon]')!;
+    const mode = player.querySelector<HTMLButtonElement>('[data-media-mode]');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let index = 0;
+    let lastImage = 1;
+    let userPaused = reducedMotion.matches;
+    let visible = !('IntersectionObserver' in window);
+
+    video.muted = true;
+    if (userPaused) {
+      video.autoplay = false;
+      video.pause();
+    }
+
+    function syncPlayback() {
+      const playing = index === 0 && !video.paused && !video.ended;
+      playIcon.toggleAttribute('hidden', playing);
+      pauseIcon.toggleAttribute('hidden', !playing);
+      const action = playing ? 'Поставить видео на паузу' : 'Воспроизвести видео';
+      playback.setAttribute('aria-label', action);
+      playback.title = action;
+    }
+
+    function play() {
+      video.play().catch(syncPlayback);
+    }
+
+    function updateMode(next: number) {
+      index = (next + slides.length) % slides.length;
+      if (index !== 0) lastImage = index;
+      slides.forEach((slide, i) => { slide.hidden = i !== index; });
+      dots.forEach((dot, i) => {
+        if (i === index) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current');
+      });
+      playback.disabled = index !== 0;
+      if (mode) {
+        const action = index === 0 ? 'Показать изображения' : 'Показать видео';
+        mode.setAttribute('aria-label', action);
+        mode.title = action;
+        mode.querySelector('[data-media-show-frames]')!.toggleAttribute('hidden', index !== 0);
+        mode.querySelector('[data-media-show-video]')!.toggleAttribute('hidden', index === 0);
+      }
+      if (index !== 0) video.pause();
+      else if (!userPaused && visible) play();
+      syncPlayback();
+    }
+
+    playback.addEventListener('click', () => {
+      if (index !== 0) return;
+      userPaused = !video.paused;
+      if (userPaused) video.pause();
+      else play();
+      syncPlayback();
+    });
+    mode?.addEventListener('click', () => updateMode(index === 0 ? lastImage : 0));
+    for (const button of player.querySelectorAll<HTMLButtonElement>('[data-media-step]')) {
+      button.addEventListener('click', () => updateMode(index + Number(button.dataset.mediaStep)));
+    }
+    dots.forEach((dot, i) => dot.addEventListener('click', () => updateMode(i)));
+    video.addEventListener('play', () => {
+      if (userPaused || index !== 0 || !visible) video.pause();
+      syncPlayback();
+    });
+    for (const event of ['playing', 'pause', 'ended']) video.addEventListener(event, syncPlayback);
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        visible = entry.isIntersecting;
+        if (!visible) video.pause();
+        else if (index === 0 && !userPaused) play();
+      });
+      observer.observe(player);
+    } else if (!userPaused) {
+      play();
+    }
+    syncPlayback();
+  }
+</script>
+
+<style>
+  .avia-player {
+    --control-size: clamp(36px, 11vw, 46px);
+    position: relative;
+    width: 100%;
+    margin: 0;
+  }
+  .media-frame {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 22px;
+    background: #eae9ef;
+  }
+  .media-frame .slide {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .media-frame .slide[hidden], button svg[hidden] { display: none; }
+  .player-controls {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .player-controls.with-slides {
+    display: grid;
+    grid-template-columns: repeat(2, var(--control-size)) minmax(0, 1fr) repeat(2, var(--control-size));
+    align-items: center;
+    gap: clamp(5px, 2vw, 9px);
+  }
+  .control, .page-dot {
+    display: grid;
+    place-items: center;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .control {
+    width: var(--control-size);
+    height: var(--control-size);
+    border-radius: 50%;
+    background: #fff;
+    color: #58585d;
+  }
+  .control:hover:not(:disabled) { background: #f9f8fb; color: #222226; }
+  .control:disabled { color: #a7a5ad; cursor: default; }
+  .control svg { width: 22px; height: 22px; }
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(var(--control-size) - 2px);
+    padding-inline: 5px;
+    border-radius: 999px;
+    background: #fff;
+  }
+  .page-dot {
+    flex: 1 1 0;
+    max-width: 24px;
+    min-width: 0;
+    height: 100%;
+    background: transparent;
+    border-radius: 999px;
+    color: #a6a4ad;
+  }
+  .page-dot::before { content: ''; width: 6px; height: 6px; background: currentColor; border-radius: 50%; }
+  .page-dot:hover, .page-dot[aria-current='true'] { color: #34333a; }
+  .control:focus-visible, .page-dot:focus-visible { outline: 2px solid #34333a; outline-offset: 2px; }
+  .phone {
+    width: min(224px, 58%);
+    margin: 0 auto clamp(32px, 7vw, 48px);
+  }
+  .phone .media-frame { aspect-ratio: 402 / 874; border-radius: 28px; }
+  .phone .slide { object-fit: cover; }
+  .phone .player-controls { right: -10px; bottom: -10px; left: auto; }
+  .phone .playback { box-shadow: 0 1px 5px #1f1b2926; }
+</style>

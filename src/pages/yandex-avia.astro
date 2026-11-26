@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CaseTextPage from '../components/CaseTextPage.astro';
+import AviaCasePlayer from '../components/AviaCasePlayer.astro';
 import { withBase } from '../lib/paths';
 
 const media = (name: string) => withBase(`/yandex-avia/${name}`);
@@ -18,30 +19,20 @@ const solution = [
   'В текущем экране время, аэропорты и пересадки расположены без чёткого порядка: глаз не находит, за что зацепиться.',
   'Пользователь не успевает разобраться и уходит к конкурентам, где всё понятно и привычно. Люди сканируют их взглядом. Значит, экран должен быть устроен так, чтобы по нему было удобно скользить.',
 ];
+const catalogFrames = [
+  { src: media('search-catalog-before.webp'), alt: 'Детали билета до редизайна' },
+  { src: media('search-catalog-after.webp'), alt: 'Детали билета после редизайна' },
+];
+const flightFrames = [
+  { src: media('flight-information-overview.webp'), alt: 'Открытый попап с фотографией самолёта' },
+  { src: media('flight-information-stats.webp'), alt: 'Обзор и статистика задержек в попапе' },
+];
 ---
 
 <BaseLayout title="Редизайн экрана деталей авиа-билета — Иван Колесников">
   <CaseTextPage title="Редизайн экрана деталей авиа-билета" context={context} process={process} solution={solution} mediaAfterProcess mediaAfterSolution>
-    <video slot="hero" class="case-video phone-screen" src={media('case-overview.mp4?v=31f67ebc42')} poster={media('case-overview-poster.webp')} aria-label="Обзор сценария от поиска билета до выбора тарифа" controls muted playsinline preload="metadata"></video>
-    <video slot="after-process" class="case-video" src={media('search-catalog.mp4')} poster={media('search-catalog-poster.webp')} aria-label="Трансформация каталога и деталей авиабилета" controls muted playsinline preload="none"></video>
-    <video slot="after-solution" class="case-video" src={media('flight-information.mp4')} poster={media('flight-information-poster.webp')} aria-label="Попап с информацией о рейсе" controls muted playsinline preload="none"></video>
+    <AviaCasePlayer slot="hero" video={media('case-overview.mp4?v=31f67ebc42')} poster={media('case-overview-poster.webp')} label="Обзор сценария от поиска билета до выбора тарифа" phone />
+    <AviaCasePlayer slot="after-process" video={media('search-catalog.mp4')} poster={media('search-catalog-poster.webp')} label="Трансформация каталога и деталей авиабилета" frames={catalogFrames} />
+    <AviaCasePlayer slot="after-solution" video={media('flight-information.mp4')} poster={media('flight-information-poster.webp')} label="Попап с информацией о рейсе" frames={flightFrames} />
   </CaseTextPage>
 </BaseLayout>
-
-<style>
-  .case-video {
-    display: block;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 22px;
-    background: #eae9ef;
-    object-fit: contain;
-  }
-  .phone-screen {
-    width: min(224px, 58%);
-    aspect-ratio: 402 / 874;
-    margin: 0 auto clamp(32px, 7vw, 48px);
-    border-radius: 28px;
-    object-fit: cover;
-  }
-</style>
