@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ComingSoonModal from '../components/ComingSoonModal.astro';
-import ListokCover from '../components/ListokCover.astro';
 import WorkflowCover from '../components/WorkflowCover.astro';
 import { cases } from '../lib/portfolio-cases';
 import { withBase } from '../lib/paths';
@@ -48,11 +47,7 @@ import { withBase } from '../lib/paths';
               </button>
             ) : (
               <a class="project-cover" href={withBase(project.href)} aria-label={project.title}>
-                {project.coverStyle === 'listok' ? (
-                  <ListokCover />
-                ) : project.cover && (
-                  <img src={project.cover.desktop} alt={project.cover.alt ?? project.title} loading="lazy" width="1040" height="620" />
-                )}
+                <img src={project.cover.desktop} alt={project.cover.alt ?? project.title} loading="lazy" width="1040" height="620" />
               </a>
             )}
             <div class="project-caption">
@@ -128,20 +123,16 @@ import { withBase } from '../lib/paths';
   .project-cover { position: relative; isolation: isolate; display: block; width: 100%; padding: 0; border: 0; border-radius: 8px; background: transparent; cursor: pointer; }
   .project-cover::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; background: var(--cover-underlay); transition: transform 280ms ease; }
   .project-cover img { width: 100%; height: auto; aspect-ratio: 1040 / 620; object-fit: cover; border-radius: 8px; transform-origin: 50% 65%; transition: transform 280ms ease, box-shadow 280ms ease; }
-  .project-cover :global(.listok-cover) { transform-origin: 50% 65%; transition: transform 280ms ease, box-shadow 280ms ease; }
   @media (hover: hover) and (pointer: fine) {
-    .project:not(.project--pending):hover .project-cover img,
-    .project-cover:hover :global(.listok-cover) { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
+    .project:not(.project--pending):hover .project-cover img { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
     .project:not(.project--pending):hover .project-cover::before { transform: translate(-5px, 5px) rotate(-0.6deg); }
   }
-  .project:not(.project--pending):focus-within .project-cover img,
-  .project:focus-within .project-cover :global(.listok-cover) { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
+  .project:not(.project--pending):focus-within .project-cover img { transform: translateY(-10px) rotate(1.2deg); box-shadow: 0 14px 24px rgb(0 0 0 / 0.12); }
   .project:not(.project--pending):focus-within .project-cover::before { transform: translate(-5px, 5px) rotate(-0.6deg); }
   .project-cover:focus-visible { outline: 2px solid #171717; outline-offset: 6px; }
   @media (prefers-reduced-motion: reduce) {
-    .project-cover img, .project-cover :global(.listok-cover) { transition: none; }
-    .project:not(.project--pending):hover .project-cover img, .project:not(.project--pending):focus-within .project-cover img,
-    .project-cover:hover :global(.listok-cover), .project:focus-within .project-cover :global(.listok-cover) { transform: none; box-shadow: none; }
+    .project-cover img { transition: none; }
+    .project:not(.project--pending):hover .project-cover img, .project:not(.project--pending):focus-within .project-cover img { transform: none; box-shadow: none; }
     .project-cover::before { transition: none; }
     .project:not(.project--pending):hover .project-cover::before, .project:not(.project--pending):focus-within .project-cover::before { transform: none; }
   }
