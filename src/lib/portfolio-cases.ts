@@ -38,6 +38,12 @@ export const cases = [
     cover: yandexCovers,
   },
   {
+    title: 'Листок — личная канбан-доска',
+    type: 'Мини-кейс · Личный проект',
+    href: '/listok',
+    coverStyle: 'listok',
+  },
+  {
     title: 'Workflow CRM - приложение для поиска вакансий',
     type: 'Концепт',
     href: '#',
